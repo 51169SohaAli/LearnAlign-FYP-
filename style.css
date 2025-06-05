@@ -1,0 +1,1645 @@
+/* Google Fonts Import Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --primary-color: #020143; /* Deep blue */
+    --border-color: #020143;
+    --background-color: #F8F9FA; /* Light gray */
+    --input-bg: #FFFFFF;
+    --text-color: #020143;
+    --border-radius: 8px;
+}
+
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 260px; /* Matches sidebar width */
+    z-index: 100;
+    height: 60px;
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.1);
+    background: #ffffff; /* Changed to white */
+    transition: left 300ms;
+}
+
+.header-content, .header-menu {
+    display: flex;
+    align-items: center;
+    background: #fff;
+}
+
+.header-content {
+    justify-content: space-between;
+    padding: 0 1rem;
+    background: #fff;
+
+}
+
+.header-menu {
+    justify-content: flex-end;
+    margin-left: auto; /* Pushes the header-menu to the right */
+    background: #fff;
+}
+
+.header-menu .notify-icon {
+    position: relative; /* Ensure positioning for notifications */
+    margin-left: 20px; /* Space between icons */
+}
+
+.header-menu .notify-icon span.notify {
+    position: absolute;
+    background: #E4E9F7; /* Same color for notification badge */
+    color: #11101d;
+    border: 1px solid #dee2e8;
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    right: -5px;
+    top: -5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.user .bg-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #dee2e8;
+    margin-left: 1rem;
+}
+
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: #020143;
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+.sidebar.close{
+  width: 78px;
+}
+.sidebar .logo-details{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.sidebar .logo-details img{
+  font-size: 30px;
+  color: #fff;
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+}
+.sidebar .logo-details .logo_name{
+  font-size: 18px;
+  color: #fff;
+  font-weight: 200;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+}
+.sidebar.close .logo-details .logo_name{
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links{
+  height: 100%;
+  padding: 30px 0 150px 0;
+  overflow: auto;
+}
+.sidebar.close .nav-links{
+  overflow: visible;
+}
+.sidebar .nav-links::-webkit-scrollbar{
+  display: none;
+}
+.sidebar .nav-links li{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+.sidebar .nav-links li:hover{
+  background: #6c71ba;
+}
+.sidebar .nav-links li .iocn-link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar.close .nav-links li .iocn-link{
+  display: block
+}
+.sidebar .nav-links li i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li.showMenu i.arrow{
+  transform: rotate(-180deg);
+}
+.sidebar.close .nav-links i.arrow{
+  display: none;
+}
+.sidebar .nav-links li a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.sidebar .nav-links li a .link_name{
+  font-size: 15px;
+  font-weight: 300;
+  color: #ffffff;
+  transition: all 0.4s ease;
+}
+.sidebar.close .nav-links li a .link_name{
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li .sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #100e32;
+  display: none;
+}
+.sidebar .nav-links li.showMenu .sub-menu{
+  display: block;
+}
+.sidebar .nav-links li .sub-menu a{
+  color: #ffffff;
+  font-size: 13px;
+  padding: 5px 0;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li .sub-menu a:hover{
+  opacity: 1;
+}
+.sidebar.close .nav-links li .sub-menu{
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar.close .nav-links li:hover .sub-menu{
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+.sidebar .nav-links li .sub-menu .link_name{
+  display: none;
+}
+.sidebar.close .nav-links li .sub-menu .link_name{
+  font-size: 13px;
+  opacity: 1;
+  display: block;
+}
+.sidebar .nav-links li .sub-menu.blank{
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li:hover .sub-menu.blank{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.home-section{
+  position: relative;
+  background: #E4E9F7;
+  height: 100vh;
+  left: 260px;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+}
+.sidebar.close ~ .home-section{
+  left: 78px;
+  width: calc(100% - 78px);
+}
+
+.home-section .home-content{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.home-section .home-content .bx-menu,
+.home-section .home-content .text{
+  color: #11101d;
+  font-size: 35px;
+}
+.home-section .home-content .bx-menu{
+  margin: 0 15px;
+  cursor: pointer;
+}
+.home-section .home-content .text{
+  font-size: 26px;
+  font-weight: 400;
+}
+@media (max-width: 400px) {
+  .sidebar.close .nav-links li .sub-menu{
+    display: none;
+  }
+  .sidebar{
+    width: 78px;
+  }
+  .sidebar.close{
+    width: 0;
+  }
+  .home-section{
+    left: 78px;
+    width: calc(100% - 78px);
+    z-index: 100;
+  }
+  .sidebar.close ~ .home-section{
+    width: 100%;
+    left: 0;
+  }
+}
+
+.main-content {
+    margin-left: 165px;
+    width: calc(100% - 165px);
+    transition: margin-left 300ms;
+}
+
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 165px;
+    z-index: 100;
+    height: 60px;
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
+    background: #fff;
+    transition: left 300ms;
+}
+
+.header-content, .header-menu {
+    display: flex;
+    align-items: center;
+}
+
+.header-content {
+    justify-content: space-between;
+    padding: 0rem 1rem;
+}
+
+.header-content label:first-child span {
+    font-size: 1.3rem;
+}
+
+.header-content label {
+    cursor: pointer;
+}
+
+.header-menu {
+    justify-content: flex-end;
+    padding-top: .5rem;
+}
+
+.header-menu label,
+.header-menu .notify-icon {
+    margin-right: 2rem;
+    position: relative;
+}
+
+.header-menu label span,
+.notify-icon span:first-child {
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.notify-icon span:last-child {
+    position: absolute;
+    background: var(--main-color);
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    right: -5px;
+    top: -5px;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user div, .client-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.user span:last-child {
+    display: inline-block;
+    margin-left: .3rem;
+    font-size: .8rem;
+}
+
+main {
+    margin-top: 60px;
+}
+
+.page-header {
+    padding: 1.3rem 1rem;
+    background: #E9edf2;
+    border-bottom: 1px solid #dee2e8;
+}
+
+.page-header h1, .page-header small {
+    color: #061666;
+    font-weight: 500;
+}
+
+.page-content {
+    padding: 1.3rem 1rem;
+    background: #f1f4f9;
+}
+
+.home-section .page-header {
+    margin-top: -50px; /* Adjust as needed */
+}
+
+  .analytics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: linear-gradient(to right, #ffffff, #f1f3ff);
+      border: 1px solid #e1e1e1;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-head h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #020143;
+    }
+
+    .card-head i {
+      font-size: 2.5rem;
+      color: #020143;
+    }
+
+    .card-progress {
+      margin-top: 15px;
+    }
+
+    .card-progress small {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #020143;
+    }
+
+
+
+
+.records {
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+    background: #fff;
+    border-radius: 3px;
+}
+
+.record-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add, .browse {
+    display: flex;
+    align-items: center;
+}
+
+.add span {
+    display: inline-block;
+    margin-right: .6rem;
+    font-size: .9rem;
+    color: #666;
+}
+
+input, button, select {
+    outline: none;
+}
+
+.add select, .browse input, .browse select {
+    height: 35px;
+    border: 1px solid #b0b0b0;
+    border-radius: 3px;
+    display: inline-block;
+    width: 75px;
+    padding: 0rem .5rem;
+    margin-right: .8rem;
+    color: #666;
+}
+
+.browse input {
+    width: 150px;
+}
+
+.browse select {
+    width: 100px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow: auto;
+}
+
+.table-responsive h2{
+    color: #020143;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%; /* Ensure the table takes full width */
+    margin-top: 1rem; /* Add some margin above the table */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for table */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Clip overflow for rounded corners */
+}
+
+table thead tr {
+    background: #e9edf2;
+}
+
+table thead th {
+    padding: 2rem;
+    text-align: left;
+    color: #444;
+    font-size: 0.95rem;
+    border-bottom: 2px solid #dee2e8; /* More pronounced border for header */
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dee2e8; /* Border between rows */
+}
+
+table tbody td {
+    padding: 1rem;
+    color: #444;
+    font-size: 0.9rem;
+    transition: background 0.3s; /* Smooth background transition */
+}
+
+table tbody tr:hover {
+    background: #f1f4f9; /* Highlight row on hover */
+}
+
+table tbody td:first-child {
+    padding-left: 2rem;
+    color: var(--main-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+
+
+.client {
+    display: flex;
+    align-items: center;
+}
+
+.client-img {
+    margin-right: 0.5rem;
+    border: 2px solid #b0b0b0;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%; /* Rounded client images */
+}
+
+.client-info h4 {
+    color: #555;
+    font-size: 1rem;
+}
+
+.client-info small {
+    color: #777;
+}
+
+.actions span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+
+.actions span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-right: .5rem;
+}
+
+.paid {
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    color: var(--main-color);
+    background: #e5f8ed;
+    padding: .5rem 1rem;
+    border-radius: 20px;
+    font-size: .8rem;
+}
+
+@media only screen and (max-width: 1200px) {
+    .analytics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .analytics {
+        grid-template-columns: 100%;
+    }
+    
+    .sidebar {
+        left: -165px;
+        z-index: 90;
+    }
+    
+    header {
+        left: 0;
+        width: 100%;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    #menu-toggle:checked ~ .sidebar {
+        left: 0;
+    }
+    
+    #menu-toggle:checked ~ .sidebar {
+        width: 165px;
+    }
+
+    #menu-toggle:checked ~ .sidebar .side-header span {
+        display: inline-block;
+    }
+
+    #menu-toggle:checked ~ .sidebar .profile,
+    #menu-toggle:checked ~ .sidebar .side-menu a small {
+        display: block;
+    }
+
+    #menu-toggle:checked ~ .sidebar .side-menu a span {
+        font-size: 1.7rem;
+    }
+    
+    #menu-toggle:checked ~ .main-content header {
+        left: 0px;
+    }
+    
+    table {
+        width: 900px;
+    }
+}
+.add, .browse {
+    display: flex;
+    align-items: center;
+}
+
+.add span {
+    display: inline-block;
+    margin-right: .6rem;
+    font-size: .9rem;
+    color: #666;
+}
+
+input, button, select {
+    outline: none;
+}
+
+.add select, .browse input, .browse select {
+    height: 35px;
+    border: 1px solid #b0b0b0;
+    border-radius: 3px;
+    display: inline-block;
+    width: 75px;
+    padding: 0rem .5rem;
+    margin-right: .8rem;
+    color: #666;
+}
+
+.add button {
+    background: #020143; 
+    color: #fff; 
+    height: 37px; 
+    border-radius: 4px; 
+    padding: 0rem 1rem; 
+    border: none; 
+    font-weight: 300; 
+    display: inline-block; 
+    margin-left: 10px; 
+    cursor: pointer;
+}
+.btn-open-popup {
+    background: #020143; 
+    color: #fff; 
+    height: 37px; 
+    border-radius: 4px; 
+    padding: 0rem 1rem; 
+    border: none; 
+    font-weight: 400; 
+    display: inline-block; 
+    margin-left: 10px; 
+    cursor: pointer;
+                
+        }
+      
+      .overlay-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto; /* Allows scrolling when content overflows */
+}
+
+
+.popup-box {
+    background: #fff;
+    padding: 0; /* Remove padding to let header span fully */
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    width: 500px;
+    max-height: 80vh;
+    text-align: center;
+    overflow-y: auto;
+    position: relative; /* Positioning for inner elements */
+}
+
+.popup-header {
+    background-color: #163872; /* Blue background for header */
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    text-align: left; /* Aligns text to the left */
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn’t affect width */
+}
+
+.popup-title {
+    color: #020143;
+    font-size: 15px;
+    font-weight: 200px;
+    margin: 0;
+}
+
+.main-form-container {
+    background-color: #eeeeef;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 95vw; /* Increase max width dynamically */
+    overflow-x: auto; /* Prevents table overflow */
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 100%; /* Ensure it takes full width */
+    max-width: 95vw; /* Adjust max-width to prevent excessive stretching */
+    margin: auto;
+    overflow-x: auto; /* Allow scrolling if needed */
+}
+
+
+
+.form-label {
+    color: #163872; /* Blue color */
+    font-size: 14px; /* Slightly smaller font */
+    margin-bottom: 5px; /* Small spacing between label and input */
+    font-weight: 600; /* Optional: make the labels a bit bold */
+    display: block; /* Ensures labels are directly above their inputs */
+    text-align: left;
+}
+
+.numQuestions {
+    color: #163872; /* Blue color */
+    font-size: 14px; /* Slightly smaller font */
+    margin-bottom: 5px; /* Small spacing between label and input */
+    font-weight: 600; /* Optional: make the labels a bit bold */
+    display: block; /* Ensures labels are directly above their inputs */
+    text-align: left;
+}
+.input-group {
+    margin-bottom: 15px; /* Space between each label-input set */
+    align-items: left;
+    color: #020143;
+}
+
+.form-input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-items: left ;
+    color: #020143;
+}
+
+
+
+/* Add New Question button styling */
+.btn-add-question {
+    background-color: #163872; /* Blue color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Adds spacing between buttons */
+}
+
+.btn-add-question:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Adds space between the buttons */
+    margin-top: 20px; /* Adds some space above the button section */
+}
+
+.btn-submit,
+.btn-close-popup {
+    background-color: #163872; /* Blue background color */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover,
+.btn-close-popup:hover {
+    background-color: #1252a3; /* Darker blue on hover */
+}
+        /* Keyframes for fadeInUp animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation for popup */
+        .overlay-container.show {
+            display: flex;
+            opacity: 1;
+        }
+
+#cloCheckboxContainer {
+    display: flex;
+    flex-wrap: wrap; /* Ensures they wrap if the screen is small */
+    gap: 10px; /* Adds space between each checkbox */
+    align-items: center;
+}
+#cloCheckboxContainer label {
+    margin-right: 10px; /* Adds some space between the checkbox and label */
+    font-size: 12px;
+}
+
+/* Additional styling for table and form elements */
+        .input-group {
+            margin-bottom: 1em; /* Added space between input groups */
+        }
+
+        #cloTable th, #cloTable td {
+            padding: 8px; /* Add padding to table cells */
+        }
+
+        .btn-add-question {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* No borders */
+            padding: 10px 15px; /* Spacing inside the button */
+            text-align: center; /* Centered text */
+            text-decoration: none; /* No underline */
+            display: inline-block; /* Inline block */
+            margin: 4px 2px; /* Margin for spacing */
+            cursor: pointer; /* Pointer cursor on hover */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .question-table {
+            width: 100%; /* Full width */
+            border-collapse: collapse; /* Collapse borders */
+            margin-top: 20px; /* Spacing above table */
+        }
+
+        .question-table th, .question-table td {
+            border: 1px solid #ddd; /* Add borders */
+            padding: 8px; /* Cell padding */
+        }
+
+        .question-table th {
+            background-color: #f2f2f2; /* Light gray background for headers */
+        }
+
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .popup-content {
+            background-color: white; /* White background for popup */
+            padding: 20px; /* Padding */
+            border-radius: 5px; /* Rounded corners */
+            width: 300px; /* Fixed width */
+            text-align: center; /* Center text */
+        }
+
+        .btn-close {
+            background-color: #f44336; /* Red */
+            color: white; /* White text */
+            padding: 10px 15px; /* Button padding */
+            border: none; /* No borders */
+            cursor: pointer; /* Pointer cursor */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .remaining-weightage {
+            margin-top: 10px; /* Spacing above remaining weightage */
+            color: #ff0000; /* Red text */
+        }
+
+   .feedback-container {
+  background-color: #eeeeef;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-item {
+  margin-bottom: 20px;
+}
+
+.feedback-item label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.feedback-item span {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+#progressContainer {
+    width: 100%;
+    height: 20px;
+    background-color: #f3f3f3; /* Light background */
+    border: 2px solid #000; /* Black border */
+    border-radius: 5px; /* Rounded corners */
+    position: relative; /* Ensure child absolute positioning works */
+    margin-bottom: 10px;
+}
+
+#cloProgressBar {
+    height: 100%;
+    width: 10%; /* Ensure it starts at 0% */
+    background-color: #f39c12; /* Default progress color */
+    transition: width 0.5s ease-in-out;
+    position: relative; /* Ensure text stays inside */
+}
+
+#cloProgressText {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2; /* Ensure text appears above the progress bar */
+}
+
+#step3 {
+    display: block !important;
+    border: 2px solid red; /* TEMP: Makes it visible */
+}
+
+#questionsTableContainer {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* Adds scrolling instead of overflowing */
+    text-align: center;
+}
+
+#questionsTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Forces columns to shrink equally */
+}
+
+#questionsTableContainer th,
+#questionsTableContainer td {
+    padding: 8px;
+    word-wrap: break-word; /* Prevents text from stretching the table */
+}
+
+
+#questionsTableContainer input[type="number"] {
+    width: 90%;
+    text-align: center;
+}
+
+.cloDetailsContainer {
+    margin-top: 10px;
+}
+
+.cloInfoTable {
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.cloInfoTable td {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cloWeightInput {
+    width: 80px;
+    padding: 5px;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    height: 10px;
+    margin-top: 5px;
+    position: relative;
+    overflow: visible;
+}
+
+
+.progress-bar {
+    width: 1%;  /* Ensure it is at least visible */
+    height: 100%;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    transition: width 0.3s ease-in-out;
+}
+
+
+/* Modal */
+.modal {
+  visibility: hidden; /* Initially hidden */
+  position: fixed; 
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  padding-top: 60px;
+  animation: fadeIn 0.3s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* When shown */
+.modal.show {
+  visibility: visible;
+  animation: fadeIn 0.3s ease-out; /* Optional: fade-in effect */
+}
+
+
+/* Modal Content */
+.modal-content {
+  background-color: #f1f4f9;
+  margin: 0;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%; /* Adjust the width of the modal */
+  max-width: 600px; /* Max width to prevent the modal from getting too wide */
+  height: 70%; /* Set a fixed height for the modal */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: scaleUp 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* For absolute positioning of the close button */
+  border: 2px solid #020143; /* Thin blue border around the modal */
+  overflow-y: auto; /* Allows scrolling if the content exceeds the height */
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: center; /* Centering header text */
+  align-items: center;
+  background-color: #020143;
+  padding: 20px 20px; /* Increased padding for a balanced header */
+  color: white;
+  border-radius: 8px 8px 0 0;
+  width: 100%;
+  font-size: 16px; /* Adjusted for better readability */
+  position: absolute;
+  top: 0; /* Ensures the header stays at the top */
+  left: 0;
+}
+
+.modal-footer {
+  background-color: #020143; /* Blue strip like the header */
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Close Button (in header) */
+.close-btn {
+  position: absolute; /* Absolutely positioning the close button */
+  top: 2px; 
+  right: 10px; /* Placing the button to the top-right */
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.close-btn:hover {
+  opacity: 0.7;
+}
+
+/* Modal Message */
+#modalMessage {
+  font-size: 20px;
+  font-weight: 500;
+  color: #020143;
+  line-height: 1.5;
+  padding: 20px;
+  margin-top: 70px;
+  text-align: center;
+  flex-grow: 1; /* Ensures the message area takes remaining space */
+}
+
+/* Close Button at the bottom-right (in modal content) */
+.modal-close-btn {
+  background-color: #020143;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 40px; /* Positioned at the bottom */
+  right: 20px;  /* Positioned at the bottom-right corner */
+}
+
+.modal-close-btn:hover {
+  background-color: #0344b2;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Modal container */
+.modals {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Modal content */
+.modal-contents {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    width: 70%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Close button */
+.modalClose {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modalClose:hover,
+.modalClose:focus {
+    color: #f00;
+}
+
+
+table#cloTable {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table#cloTable thead tr {
+    background: #020143; /* Ensure header uses the correct color */
+    color: white;
+}
+
+table#cloTable thead th {
+    padding: 10px; /* Match your previous `#cloTable th` style */
+    text-align: left;
+    border-bottom: 2px solid #dee2e8;
+    color: white;
+    font-size: 15px;
+}
+
+table#cloTable tbody tr {
+    border-bottom: 1px solid #dee2e8;
+}
+
+table#cloTable tbody td {
+    padding: 10px;
+    color: #444;
+    font-size: 0.9rem;
+    text-align: left; /* Ensures consistency */
+}
+
+table#cloTable tbody tr:hover {
+    background: #ddd; /* Keep the hover effect from your original CSS */
+}
+
+table#cloTable tbody td:nth-child(3),
+table#cloTable tbody td:nth-child(5) {
+    text-align: center; /* Center align 'Credits' and 'Semester' */
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.clo-container {
+    display: inline-block;
+    text-align: center;
+}
+
+
+.clo-number {
+    display: inline-block;
+}
+
+.clo-view {
+     display: inline-block;
+    text-decoration: none;
+    background-color: #020143;
+    color: white;
+    padding: 6px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    white-space: nowrap; /* prevents text from breaking into two lines */
+    margin-left: 500px;
+}
+
+
+.clo-view:hover {
+    color: #0056b3;
+}
+
+/* Center-align only the specific columns for Credits and Semester */
+.center-align {
+    text-align: center;
+    vertical-align: middle;
+    justify-content: center;
+    justify-items: center;
+}
+
+/* Additional styling for the CLO column */
+.clo-container {
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.clo-number {
+    display: inline-block;
+}
+
+.clo-view {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+button {
+    margin-top: 10px;
+    background-color: #020143;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #03065f;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+select {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+/* styles.css */
+.blue-header {
+  background-color: #020143; /* deep blue */
+  color: white;
+}
+
+/* Header styling */
+.blue-header th {
+  background-color: #020143;
+  color: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* Assessment box styling inside table headers */
+.assessment-box {
+  margin-top: 8px;
+  padding: 6px;
+  background-color: #020143;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* List inside assessment box */
+.assessment-list {
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
+.user-container {
+  position: relative;
+  display: inline-block;
+}
+
+.bg-img {
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: transform 0.3s;
+}
+
+.bg-img:hover {
+  transform: scale(1.05);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 8px; /* Reduced margin-top */
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #020143; /* Thin blue border */
+  border-radius: 12px;
+  padding: 8px 12px; /* Reduced padding */
+  width: 180px;
+  z-index: 100;
+  text-align: center;
+  transform-origin: top right;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.dropdown .profile-pic {
+  width: 80px;
+  height: 80px;
+  margin: 12px auto 12px; /* Added top margin to move it down */
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #020143;
+}
+
+.logout-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* Reduced gap */
+  color: #020143;
+  font-weight: 500;
+  padding: 6px; /* Reduced padding */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-option:hover {
+  background-color: #f0f0f5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 6px 0; /* Reduced margin for divider */
+}
+
+.profile-pic:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#userIcon {
+  background-image: url('OIP.jpg');
+}
+
+.instructor-name {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 2px; /* Reduced margin-top */
+  color: #020143;
+}
+
+.student-name {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 2px; /* Reduced margin-top */
+  color: #020143;
+}
+
+.welcome-message {
+  font-size: 16px; /* Slightly smaller font size */
+  font-weight: 500;
+  margin: 4px 0 0 15px; /* Reduced margin */
+  color: #020143;
+}
+
+.course-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.course-card {
+  background: linear-gradient(to right, #ffffff, #f1f3ff);
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer; /* 👈 This line makes it look clickable */
+  transition: transform 0.2s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-3px);
+}
+
+
+.course-card h3 {
+  margin-bottom: 10px;
+  color: #020143;
+}
+
+.course-card p{
+    color: #020143
+}
+
+#semester-display {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-left: 5px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+#semester-display.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Make the action link appear directly and clearly under the Action column */
+.assign-clo-link {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #020143;
+    color: white;
+    padding: 6px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    white-space: nowrap; /* prevents text from breaking into two lines */
+    margin-right: 250px;
+}
+
+
+
+.assign-clo-link:hover {
+    background-color: #0056b3;
+}
+
+
+.assignclo {
+    color: #020143;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    border-left: 6px solid #020143;
+    padding-left: 14px;
+    letter-spacing: 0.5px;
+    background-color: #f1f3fa;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(2, 1, 67, 0.1);
+}
+
+.clow {
+    color: #020143;
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    width: fit-content;
+    background-color: #f6f8ff;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 4px;
+}
+
+

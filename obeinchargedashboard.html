@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>OBE-Incharge Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar close">
+    <div class="logo-details">
+      <img src="LearnAlign Logo Final.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="obeinchargedashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeinchargedashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+       <li>
+        <a href="initiateobeprocess.html">
+          <i class='bx bx-bullseye' ></i>
+          <span class="link_name">Initiate OBE Process</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="initiateobeprocess.html">Initiate OBE Process</a></li>
+        </ul>
+      </li>
+       <li>
+        <a href="obeicourses.php">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Courses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeicourses.php">Courses</a></li>
+        </ul>
+      </li>
+      
+</ul>
+  </div>
+  <section class="home-section" style="background-color: #fff;">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <div class="header-menu">
+                                  
+     <div class="user-container">
+  <div class="user" onclick="toggleDropdown()">
+    <div class="bg-img" id="userIcon"></div>
+  </div>
+
+  <div class="dropdown" id="userDropdown">
+    <label for="profileInput">
+      <div class="profile-pic" id="dropdownProfile" style="background-image: url('OIP.jpg')" title="Click to change profile picture"></div>
+    </label>
+    <div class="welcome-message" id="welcomeMessage">Welcome,</div>
+    <div id="instructorName" class="instructor-name">Loading name...</div>
+    <input type="file" id="profileInput" accept="image/*" style="display: none" onchange="changeProfilePic(event)">
+    
+    <div class="divider"></div>
+
+    <div class="logout-option" onclick="logout()">
+      <i data-lucide="log-out"></i>
+      <span>Log Out</span>
+    </div>
+  </div>
+</div>
+
+                </div>
+            </div>
+    </div>
+
+    <main>
+      <div class="page-header">
+        <h1>Dashboard</h1>
+        <small>Home / Dashboard</small>
+      </div>
+
+      <div class="page-content">
+        <div id="semester-display"></div>
+        <div class="analytics">
+          <div class="card">
+            <div class="card-head">
+              <h2 id="courseCount">-</h2>
+              <i class='bx bx-book-content'></i>
+            </div>
+            <div class="card-progress">
+              <small>Courses</small>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h2 id="instructorCount">-</h2>
+              <i class='bx bx-user-circle'></i>
+            </div>
+            <div class="card-progress">
+              <small>Instructors</small>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h2 id="studentCount">-</h2>
+              <i class='bx bx-group'></i>
+            </div>
+            <div class="card-progress">
+              <small>Students</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+<script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+  <script>
+
+    // Fetch counts via PHP
+    fetch('get_dashboard_counts.php')
+  .then(res => res.json())
+  .then(data => {
+    const semesterDisplay = document.getElementById('semester-display');
+    semesterDisplay.textContent = `Current Semester: ${data.latest_semester}`;
+    semesterDisplay.classList.add('loaded'); // <-- THIS IS THE FIX
+
+    document.getElementById('courseCount').innerText = data.courses;
+    document.getElementById('instructorCount').innerText = data.instructors;
+    document.getElementById('studentCount').innerText = data.students;
+  })
+  .catch(err => {
+    console.error("Error fetching dashboard counts:", err);
+  });
+
+  function toggleDropdown() {
+  const dropdown = document.getElementById("userDropdown");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+
+  fetch('get_instructors_name.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.name) {
+        document.getElementById("instructorName").textContent = data.name;
+      } else {
+        document.getElementById("instructorName").textContent = "Unknown Instructor";
+      }
+    });
+
+  lucide.createIcons();
+}
+
+function logout() {
+  alert("Logged out!");
+  window.location.href = "login.html";
+}
+
+function changeProfilePic(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imgData = e.target.result;
+
+      // Set the image in both UI locations
+      document.getElementById("userIcon").style.backgroundImage = `url('${imgData}')`;
+      document.getElementById("dropdownProfile").style.backgroundImage = `url('${imgData}')`;
+
+      // Save the image to localStorage
+      localStorage.setItem("userProfilePic", imgData);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+document.addEventListener("click", function (event) {
+  const user = document.querySelector(".user");
+  const dropdown = document.getElementById("userDropdown");
+  if (!user.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+});
+
+window.addEventListener("DOMContentLoaded", function () {
+  const savedPic = localStorage.getItem("userProfilePic");
+  if (savedPic) {
+    document.getElementById("userIcon").style.backgroundImage = `url('${savedPic}')`;
+    document.getElementById("dropdownProfile").style.backgroundImage = `url('${savedPic}')`;
+  }
+});
+  </script>
+</body>
+</html>
+

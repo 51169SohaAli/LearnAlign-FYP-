@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Assessment</title>
+    <link rel="stylesheet" href="testcss.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <div class="sidebar close">
+        <div class="logo-details">
+            <img src="logo.png" alt="logo">
+            <span class="logo_name">LearnAlign</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="InstructorDashboard.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="InstructorDashboard.html">Dashboard</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="initiateobeprocess.html">
+                    <i class='bx bx-bullseye'></i>
+                    <span class="link_name">Outcomes</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="intiateobeprocess.html">Initiate OBE Process</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="courses.html">
+                    <i class='bx bx-book-alt'></i>
+                    <span class="link_name">Courses</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="courses.html">Courses</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="assessment.html">
+                    <i class='bx bx-list-check'></i>
+                    <span class="link_name">Assessments</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="assessment.html">Assessments</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="progressreport.php">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Progress Report</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="progressreport.php">Progress Report</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="feedback.html">
+                    <i class='bx bx-comment'></i>
+                    <span class="link_name">Feedback</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="feedback.html">Feedback</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section" style="background-color: #fff;">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <div class="header-menu">
+                 <div class="user-container">
+  <div class="user" onclick="toggleDropdown()">
+    <div class="bg-img" id="userIcon"></div>
+  </div>
+
+  <div class="dropdown" id="userDropdown">
+    <label for="profileInput">
+      <div class="profile-pic" id="dropdownProfile" title="Click to change profile picture"></div>
+    </label>
+    <input type="file" id="profileInput" accept="image/*" style="display: none" onchange="changeProfilePic(event)">
+    
+    <div class="divider"></div>
+
+    <div class="logout-option" onclick="logout()">
+      <i data-lucide="log-out"></i>
+      <span>Log Out</span>
+    </div>
+  </div>
+</div>
+            </div>
+        </div>
+
+        <main>
+            <div class="page-header">
+                <h1>Add Assessment</h1>
+                <small>Home / Courses / Add Assessment</small>
+            </div>
+
+        <div class="page-content">
+    <div class="main-form-container">
+        <div class="form-header">
+        </div>
+        <form class="form-container" onsubmit="return false;">
+            <div class="input-group">
+               <!-- Step 1: Assessment Information -->
+<div class="step" id="step1">
+    <div id="step1-header">Step 1: Assessment Information</div>
+    
+    <label for="assessmenttype">Assessment Type:</label>
+    <select id="assessmenttype">
+        <option value="" disabled selected>Choose Assessment Type</option>
+        <option>Midterm</option>
+        <option>FinalTerm</option>
+        <option>Assignment</option>
+        <option>Quiz</option>
+        <option>Project</option>
+        <option>Lab</option>
+    </select>
+
+    <label for="course_id">Course ID:</label>
+    <select id="course_id">
+        <option value="" disabled selected>Loading...</option>
+    </select>
+    <input type="hidden" id="courseId" value="101">
+
+    <label for="totalWeightage">Weightage for Assessment:</label>
+    <input type="number" id="totalWeightage" placeholder="Enter total weightage" required>
+
+    <!-- Hidden input for storing assessment ID -->
+    <input type="hidden" id="assessmentId" value="">
+
+    <button type="button" onclick="validateStep1()">Next</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+
+
+
+
+        </main>
+    </section>
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+    </script>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Initiate OBE Process</title>
+    <link rel="stylesheet" href="testcss.css">
+   <script src="https://unpkg.com/lucide@latest"></script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <div class="sidebar close">
+    <div class="logo-details">
+      <img src="LearnAlign Logo Final.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="obeinchargedashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeinchargedashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="initiateobeprocess.html">
+          <i class='bx bx-bullseye' ></i>
+          <span class="link_name">Initiate OBE Process</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="initiateobeprocess.html">Initiate OBE Process</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="obeicourses.php">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Courses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeicourses.php">Courses</a></li>
+        </ul>
+      </li>
+      
+</ul>
+  </div>
+    <section class="home-section" style="background-color: #fff;">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <div class="header-menu">
+                 <div class="user-container">
+  <div class="user" onclick="toggleDropdown()">
+    <div class="bg-img" id="userIcon"></div>
+  </div>
+
+    <div class="dropdown" id="userDropdown">
+    <label for="profileInput">
+      <div class="profile-pic" id="dropdownProfile" style="background-image: url('OIP.jpg')" title="Click to change profile picture"></div>
+    </label>
+    <div class="welcome-message" id="welcomeMessage">Welcome,</div>
+    <div id="instructorName" class="instructor-name">Loading name...</div>
+    <input type="file" id="profileInput" accept="image/*" style="display: none" onchange="changeProfilePic(event)">
+    
+    <div class="divider"></div>
+
+    <div class="logout-option" onclick="logout()">
+      <i data-lucide="log-out"></i>
+      <span>Log Out</span>
+    </div>
+  </div>
+</div>
+            </div>
+        </div>
+
+        <main>
+            <div class="page-header">
+                <h1>Initiate OBE Process</h1>
+                <small>Home / Initiate OBE Process</small>
+            </div>
+
+        <div class="page-content">
+    <div class="main-form-container">
+        <div class="form-header">
+        </div>
+        <form class="form-container" onsubmit="return false;">
+            <div class="input-group">
+   <div class="step" id="step1">
+    <div id="step1-header">Step 1: Create Semester</div>
+
+    <label for="semester_name">Semester:</label>
+    <input type="text" id="semester_name" placeholder="Enter semester name (e.g., Spring 2025)" required>
+
+    <button type="button" onclick="submitSemester()">Next</button>
+</div>
+<div class="step" id="step2s" style="display: none;">
+  <div id="step2-headers">Step 2: Upload Course and Instructor Assignments</div>
+  <input type="file" name="assignment_file" id="file_upload" accept=".xlsx" required>
+  <button type="button" onclick="uploadFile()">Upload</button>
+  <button type="button" onclick="goToStep1()">Back</button>
+   <button type="button" onclick="goToStep3()">Next</button> <!-- New Next Button -->
+</div>
+
+<div class="step" id="step3s" style="display: none;">
+  <div id="step3-headers">Step 3: Upload Student Course Enrollments</div>
+  
+  <input type="file" name="enrollment_file" id="enrollment_file" accept=".xlsx" required>
+  <button type="button" onclick="uploadEnrollmentFile()">Upload</button>
+  <button type="button" onclick="goToStep2()">Back</button>
+</div>
+
+</div>
+</form>
+</div>
+</div>
+
+<!-- Modal Structure -->
+<div id="reusableModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+      <!-- No header text -->
+    </div>
+    <p id="modalMessage">Message content goes here.</p>
+    <button id="modalCloseBtn" class="modal-close-btn">Close</button>
+    <div class="modal-footer"></div>
+    <div id="modalButtons">
+  <button id="modalYesBtn">Yes</button>
+  <button id="modalNoBtn">No</button>
+</div>
+  </div>
+</div>
+
+
+        </main>
+    </section>
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+let semesterId = null; // Store the semester ID globally
+
+function submitSemester() {
+    let semesterName = document.getElementById('semester_name').value;
+
+    if (semesterName.trim() === "") {
+        showModal("Please enter a valid semester name.");
+        return;
+    }
+
+    let data = {
+        semester_name: semesterName
+    };
+
+    fetch('create_semester.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            if (data.message === 'Semester already exists') {
+                showModal('This semester already exists. Please create a new semester.');
+                return; // Do NOT proceed to the next step
+            }
+
+            // New semester created
+            semesterId = data.semester_id;
+            showModal('Semester created successfully');
+
+            // Proceed to the next step
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2s').style.display = 'block';
+        } else {
+            alert('Error creating semester: ' + (data.message || 'Unknown error.'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
+}
+
+function uploadFile() {
+    const fileInput = document.getElementById('file_upload');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        showModal("Please select a file to upload.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("assignment_file", file); // 🔧 fixed name
+    formData.append("semester_id", semesterId);  // assumed defined elsewhere
+
+    fetch('upload_courses_instructors.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showModal('File uploaded and course-instructor assignments updated.');
+        } else {
+            alert("Error: " + data.message); // more helpful
+        }
+    })
+    .catch(error => {
+        console.error("Error uploading file:", error);
+        alert("An error occurred while uploading the file.");
+    });
+}
+
+function uploadEnrollmentFile() {
+    const fileInput = document.getElementById('enrollment_file');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        showModal('Please select an enrollment file to upload.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("enrollment_file", file);
+    formData.append("semester_id", semesterId); // assumed to be defined globally
+
+    fetch('upload_student_enrollments.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showModal('Student course enrollment data uploaded successfully.');
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error uploading file:", error);
+        alert("An error occurred while uploading the file.");
+    });
+}
+
+function goToStep1() {
+  document.getElementById("step2s").style.display = "none";
+  document.getElementById("step1").style.display = "block";
+}
+
+function goToStep2() {
+  document.getElementById("step3s").style.display = "none";
+  document.getElementById("step2s").style.display = "block";
+}
+
+function goToStep3() {
+  document.getElementById("step2s").style.display = "none";
+  document.getElementById("step3s").style.display = "block";
+}
+
+ function toggleDropdown() {
+  const dropdown = document.getElementById("userDropdown");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+
+  fetch('get_instructors_name.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.name) {
+        document.getElementById("instructorName").textContent = data.name;
+      } else {
+        document.getElementById("instructorName").textContent = "Unknown Instructor";
+      }
+    });
+
+  lucide.createIcons();
+}
+
+function logout() {
+  alert("Logged out!");
+  window.location.href = "login.html";
+}
+
+function changeProfilePic(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imgData = e.target.result;
+
+      // Set the image in both UI locations
+      document.getElementById("userIcon").style.backgroundImage = `url('${imgData}')`;
+      document.getElementById("dropdownProfile").style.backgroundImage = `url('${imgData}')`;
+
+      // Save the image to localStorage
+      localStorage.setItem("userProfilePic", imgData);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+document.addEventListener("click", function (event) {
+  const user = document.querySelector(".user");
+  const dropdown = document.getElementById("userDropdown");
+  if (!user.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+});
+
+window.addEventListener("DOMContentLoaded", function () {
+  const savedPic = localStorage.getItem("userProfilePic");
+  if (savedPic) {
+    document.getElementById("userIcon").style.backgroundImage = `url('${savedPic}')`;
+    document.getElementById("dropdownProfile").style.backgroundImage = `url('${savedPic}')`;
+  }
+});
+
+// Function to open and customize the modal
+function showModal(message, type = "info") {
+    return new Promise((resolve) => {
+        // Set the message dynamically
+        document.getElementById("modalMessage").innerText = message;
+
+        // Show modal
+        document.querySelector('.modal').classList.add('show');
+
+        const yesBtn = document.getElementById("modalYesBtn");
+        const noBtn = document.getElementById("modalNoBtn");
+        const closeBtn = document.getElementById("modalCloseBtn");
+        const headerCloseIcon = document.querySelector(".close-btn");
+
+        if (type === "confirm") {
+            // Show Yes/No buttons
+            yesBtn.style.display = "inline-block";
+            noBtn.style.display = "inline-block";
+
+            // Hide close button/icon
+            closeBtn.style.display = "none";
+            headerCloseIcon.style.display = "none";
+
+            yesBtn.onclick = function () {
+                closeModal();
+                resolve(true);
+            };
+
+            noBtn.onclick = function () {
+                closeModal();
+                resolve(false);
+            };
+        } else {
+            // Hide Yes/No buttons
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
+
+            // Show close button/icon
+            closeBtn.style.display = "inline-block";
+            headerCloseIcon.style.display = "inline-block";
+
+            // Auto-close after 2 seconds
+            setTimeout(() => {
+                closeModal();
+                resolve();
+            }, 2000);
+        }
+
+        // Close modal button
+        closeBtn.onclick = function () {
+            closeModal();
+            resolve(false); // Treat as cancel
+        };
+
+        // Close icon in header
+        headerCloseIcon.onclick = function () {
+            closeModal();
+            resolve(false); // Treat as cancel
+        };
+
+        // Clicking outside modal closes it
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("reusableModal")) {
+                closeModal();
+                resolve(false);
+            }
+        };
+
+        function closeModal() {
+            document.querySelector('.modal').classList.remove('show');
+
+            // Reset all buttons to visible for next time
+            yesBtn.style.display = "inline-block";
+            noBtn.style.display = "inline-block";
+            closeBtn.style.display = "inline-block";
+            headerCloseIcon.style.display = "inline-block";
+        }
+    });
+}
+
+
+
+    </script>
+
+</body>
+</html>

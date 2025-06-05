@@ -1,0 +1,1822 @@
+/* Google Fonts Import Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 260px; /* Matches sidebar width */
+    z-index: 100;
+    height: 60px;
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.1);
+    background: #ffffff; /* Changed to white */
+    transition: left 300ms;
+}
+
+.header-content, .header-menu {
+    display: flex;
+    align-items: center;
+    background: #fff;
+}
+
+.header-content {
+    justify-content: space-between;
+    padding: 0 1rem;
+    background: #fff;
+
+}
+
+.header-menu {
+    justify-content: flex-end;
+    margin-left: auto; /* Pushes the header-menu to the right */
+    background: #fff;
+}
+
+.header-menu .notify-icon {
+    position: relative; /* Ensure positioning for notifications */
+    margin-left: 20px; /* Space between icons */
+}
+
+.header-menu .notify-icon span.notify {
+    position: absolute;
+    background: #E4E9F7; /* Same color for notification badge */
+    color: #11101d;
+    border: 1px solid #dee2e8;
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    right: -5px;
+    top: -5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.user .bg-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #dee2e8;
+    margin-left: 1rem;
+}
+
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 260px;
+  background: #020143;
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+.sidebar.close{
+  width: 78px;
+}
+.sidebar .logo-details{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.sidebar .logo-details img{
+  font-size: 30px;
+  color: #fff;
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+}
+.sidebar .logo-details .logo_name{
+  font-size: 18px;
+  color: #fff;
+  font-weight: 200;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+}
+.sidebar.close .logo-details .logo_name{
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links{
+  height: 100%;
+  padding: 30px 0 150px 0;
+  overflow: auto;
+}
+.sidebar.close .nav-links{
+  overflow: visible;
+}
+.sidebar .nav-links::-webkit-scrollbar{
+  display: none;
+}
+.sidebar .nav-links li{
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+.sidebar .nav-links li:hover{
+  background: #6c71ba;
+}
+.sidebar .nav-links li .iocn-link{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar.close .nav-links li .iocn-link{
+  display: block
+}
+.sidebar .nav-links li i{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li.showMenu i.arrow{
+  transform: rotate(-180deg);
+}
+.sidebar.close .nav-links i.arrow{
+  display: none;
+}
+.sidebar .nav-links li a{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.sidebar .nav-links li a .link_name{
+  font-size: 15px;
+  font-weight: 300;
+  color: #ffffff;
+  transition: all 0.4s ease;
+}
+.sidebar.close .nav-links li a .link_name{
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li .sub-menu{
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: #100e32;
+  display: none;
+}
+.sidebar .nav-links li.showMenu .sub-menu{
+  display: block;
+}
+.sidebar .nav-links li .sub-menu a{
+  color: #ffffff;
+  font-size: 13px;
+  padding: 5px 0;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li .sub-menu a:hover{
+  opacity: 1;
+}
+.sidebar.close .nav-links li .sub-menu{
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar.close .nav-links li:hover .sub-menu{
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+.sidebar .nav-links li .sub-menu .link_name{
+  display: none;
+}
+.sidebar.close .nav-links li .sub-menu .link_name{
+  font-size: 13px;
+  opacity: 1;
+  display: block;
+}
+.sidebar .nav-links li .sub-menu.blank{
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar .nav-links li:hover .sub-menu.blank{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.home-section{
+  position: relative;
+  background: #E4E9F7;
+  height: 100vh;
+  left: 260px;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+}
+.sidebar.close ~ .home-section{
+  left: 78px;
+  width: calc(100% - 78px);
+}
+
+.home-section .home-content{
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.home-section .home-content .bx-menu,
+.home-section .home-content .text{
+  color: #11101d;
+  font-size: 35px;
+}
+.home-section .home-content .bx-menu{
+  margin: 0 15px;
+  cursor: pointer;
+}
+.home-section .home-content .text{
+  font-size: 26px;
+  font-weight: 400;
+}
+@media (max-width: 400px) {
+  .sidebar.close .nav-links li .sub-menu{
+    display: none;
+  }
+  .sidebar{
+    width: 78px;
+  }
+  .sidebar.close{
+    width: 0;
+  }
+  .home-section{
+    left: 78px;
+    width: calc(100% - 78px);
+    z-index: 100;
+  }
+  .sidebar.close ~ .home-section{
+    width: 100%;
+    left: 0;
+  }
+}
+
+.main-content {
+    margin-left: 165px;
+    width: calc(100% - 165px);
+    transition: margin-left 300ms;
+}
+
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 165px;
+    z-index: 100;
+    height: 60px;
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
+    background: #fff;
+    transition: left 300ms;
+}
+
+.header-content, .header-menu {
+    display: flex;
+    align-items: center;
+}
+
+.header-content {
+    justify-content: space-between;
+    padding: 0rem 1rem;
+}
+
+.header-content label:first-child span {
+    font-size: 1.3rem;
+}
+
+.header-content label {
+    cursor: pointer;
+}
+
+.header-menu {
+    justify-content: flex-end;
+    padding-top: .5rem;
+}
+
+.header-menu label,
+.header-menu .notify-icon {
+    margin-right: 2rem;
+    position: relative;
+}
+
+.header-menu label span,
+.notify-icon span:first-child {
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.notify-icon span:last-child {
+    position: absolute;
+    background: var(--main-color);
+    height: 16px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    right: -5px;
+    top: -5px;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user div, .client-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.user span:last-child {
+    display: inline-block;
+    margin-left: .3rem;
+    font-size: .8rem;
+}
+
+main {
+    margin-top: 60px;
+}
+
+.page-header {
+    padding: 1.3rem 1rem;
+    background: #E9edf2;
+    border-bottom: 1px solid #dee2e8;
+}
+
+.page-header h1 {
+    color: #061666;
+    font-weight: 400;
+}
+
+.page-header small {
+    color: #061666;
+    font-weight: 200;
+}
+
+.page-content {
+    padding: 1.3rem 1rem;
+    background: #f1f4f9;
+}
+
+.home-section .page-header {
+    margin-top: -50px; /* Adjust as needed */
+}
+
+.analytics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+    margin-top: .5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+    background: #fff;
+    padding: 1rem;
+    border-radius: 3px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.card-head h2 {
+    color: #020143;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.card-head span {
+    font-size: 3.2rem;
+    color: #020143;
+}
+
+.card-progress small {
+    color: #020143;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.card a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit; /* Keep text color */
+    text-decoration: none; /* Remove underline */
+}
+
+
+.records {
+    box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
+    background: #fff;
+    border-radius: 3px;
+}
+
+.record-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add, .browse {
+    display: flex;
+    align-items: center;
+}
+
+.add span {
+    display: inline-block;
+    margin-right: .6rem;
+    font-size: .9rem;
+    color: #666;
+}
+
+input, button, select {
+    outline: none;
+}
+
+.add select, .browse input, .browse select {
+    height: 35px;
+    border: 1px solid #b0b0b0;
+    border-radius: 3px;
+    display: inline-block;
+    width: 75px;
+    padding: 0rem .5rem;
+    margin-right: .8rem;
+    color: #666;
+}
+
+.browse input {
+    width: 150px;
+}
+
+.browse select {
+    width: 100px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow: auto;
+}
+
+.table-responsive h2{
+    color: #020143;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%; /* Ensure the table takes full width */
+    margin-top: 1rem; /* Add some margin above the table */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for table */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Clip overflow for rounded corners */
+}
+
+table thead tr {
+    background: #e9edf2;
+}
+
+table thead th {
+    padding: 2rem;
+    text-align: left;
+    color: #444;
+    font-size: 0.95rem;
+    border-bottom: 2px solid #dee2e8; /* More pronounced border for header */
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dee2e8; /* Border between rows */
+}
+
+table tbody td {
+    padding: 1rem;
+    color: #444;
+    font-size: 0.9rem;
+    transition: background 0.3s; /* Smooth background transition */
+}
+
+table tbody tr:hover {
+    background: #f1f4f9; /* Highlight row on hover */
+}
+
+table tbody td:first-child {
+    padding-left: 2rem;
+    color: var(--main-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+
+
+.client {
+    display: flex;
+    align-items: center;
+}
+
+.client-img {
+    margin-right: 0.5rem;
+    border: 2px solid #b0b0b0;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%; /* Rounded client images */
+}
+
+.client-info h4 {
+    color: #555;
+    font-size: 1rem;
+}
+
+.client-info small {
+    color: #777;
+}
+
+.actions span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+
+.actions span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-right: .5rem;
+}
+
+.paid {
+    display: inline-block;
+    text-align: center;
+    font-weight: 600;
+    color: var(--main-color);
+    background: #e5f8ed;
+    padding: .5rem 1rem;
+    border-radius: 20px;
+    font-size: .8rem;
+}
+
+@media only screen and (max-width: 1200px) {
+    .analytics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .analytics {
+        grid-template-columns: 100%;
+    }
+    
+    .sidebar {
+        left: -165px;
+        z-index: 90;
+    }
+    
+    header {
+        left: 0;
+        width: 100%;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    #menu-toggle:checked ~ .sidebar {
+        left: 0;
+    }
+    
+    #menu-toggle:checked ~ .sidebar {
+        width: 165px;
+    }
+
+    #menu-toggle:checked ~ .sidebar .side-header span {
+        display: inline-block;
+    }
+
+    #menu-toggle:checked ~ .sidebar .profile,
+    #menu-toggle:checked ~ .sidebar .side-menu a small {
+        display: block;
+    }
+
+    #menu-toggle:checked ~ .sidebar .side-menu a span {
+        font-size: 1.7rem;
+    }
+    
+    #menu-toggle:checked ~ .main-content header {
+        left: 0px;
+    }
+    
+    table {
+        width: 900px;
+    }
+}
+.add, .browse {
+    display: flex;
+    align-items: center;
+}
+
+.add span {
+    display: inline-block;
+    margin-right: .6rem;
+    font-size: .9rem;
+    color: #666;
+}
+
+input, button, select {
+    outline: none;
+}
+
+.add select, .browse input, .browse select {
+    height: 35px;
+    border: 1px solid #b0b0b0;
+    border-radius: 3px;
+    display: inline-block;
+    width: 75px;
+    padding: 0rem .5rem;
+    margin-right: .8rem;
+    color: #666;
+}
+
+.add button {
+    background: #020143; 
+    color: #fff; 
+    height: 37px; 
+    border-radius: 4px; 
+    padding: 0rem 1rem; 
+    border: none; 
+    font-weight: 300; 
+    display: inline-block; 
+    margin-left: 10px; 
+    cursor: pointer;
+}
+.btn-open-popup {
+    background: #020143; 
+    color: #fff; 
+    height: 37px; 
+    border-radius: 4px; 
+    padding: 0rem 1rem; 
+    border: none; 
+    font-weight: 400; 
+    display: inline-block; 
+    margin-left: 10px; 
+    cursor: pointer;
+                
+        }
+      
+      .overlay-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto; /* Allows scrolling when content overflows */
+}
+
+
+.popup-box {
+    background: #fff;
+    padding: 0; /* Remove padding to let header span fully */
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    width: 500px;
+    max-height: 80vh;
+    text-align: center;
+    overflow-y: auto;
+    position: relative; /* Positioning for inner elements */
+}
+
+.popup-header {
+    background-color: #163872; /* Blue background for header */
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    text-align: left; /* Aligns text to the left */
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn’t affect width */
+}
+
+.popup-title {
+    color: #020143;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.form-label {
+    color: #163872; /* Blue color */
+    font-size: 14px; /* Slightly smaller font */
+    margin-bottom: 5px; /* Small spacing between label and input */
+    font-weight: 600; /* Optional: make the labels a bit bold */
+    display: block; /* Ensures labels are directly above their inputs */
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 15px; /* Space between each label-input set */
+    align-items: left;
+    color: #020143;
+}
+
+.form-input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-items: left ;
+    color: #020143;
+}
+
+
+
+/* Add New Question button styling */
+.btn-add-question {
+    background-color: #163872; /* Blue color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Adds spacing between buttons */
+}
+
+.btn-add-question:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Adds space between the buttons */
+    margin-top: 20px; /* Adds some space above the button section */
+}
+
+.btn-submit,
+.btn-close-popup {
+    background-color: #163872; /* Blue background color */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover,
+.btn-close-popup:hover {
+    background-color: #1252a3; /* Darker blue on hover */
+}
+        /* Keyframes for fadeInUp animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation for popup */
+        .overlay-container.show {
+            display: flex;
+            opacity: 1;
+        }
+
+#cloCheckboxContainer {
+    display: flex;
+    flex-wrap: wrap; /* Ensures they wrap if the screen is small */
+    gap: 10px; /* Adds space between each checkbox */
+    align-items: center;
+}
+#cloCheckboxContainer label {
+    margin-right: 10px; /* Adds some space between the checkbox and label */
+    font-size: 12px;
+}
+
+/* Additional styling for table and form elements */
+        .input-group {
+            margin-bottom: 1em; /* Added space between input groups */
+        }
+
+        #cloTable th, #cloTable td {
+            padding: 8px; /* Add padding to table cells */
+        }
+
+        .btn-add-question {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* No borders */
+            padding: 10px 15px; /* Spacing inside the button */
+            text-align: center; /* Centered text */
+            text-decoration: none; /* No underline */
+            display: inline-block; /* Inline block */
+            margin: 4px 2px; /* Margin for spacing */
+            cursor: pointer; /* Pointer cursor on hover */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .question-table {
+            width: 100%; /* Full width */
+            border-collapse: collapse; /* Collapse borders */
+            margin-top: 20px; /* Spacing above table */
+        }
+
+        .question-table th, .question-table td {
+            border: 1px solid #ddd; /* Add borders */
+            padding: 8px; /* Cell padding */
+        }
+
+        .question-table th {
+            background-color: #f2f2f2; /* Light gray background for headers */
+        }
+
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .popup-content {
+            background-color: white; /* White background for popup */
+            padding: 20px; /* Padding */
+            border-radius: 5px; /* Rounded corners */
+            width: 300px; /* Fixed width */
+            text-align: center; /* Center text */
+        }
+
+        .btn-close {
+            background-color: #f44336; /* Red */
+            color: white; /* White text */
+            padding: 10px 15px; /* Button padding */
+            border: none; /* No borders */
+            cursor: pointer; /* Pointer cursor */
+            border-radius: 5px; /* Rounded corners */
+        }
+
+        .remaining-weightage {
+            margin-top: 10px; /* Spacing above remaining weightage */
+            color: #ff0000; /* Red text */
+        }
+
+   .feedback-container {
+  background-color: #eeeeef;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-item {
+  margin-bottom: 20px;
+}
+
+.feedback-item label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.feedback-item span {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+}
+.popup h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.popup textarea, .popup input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.popup .btn-close, .popup .btn-submit {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.popup .btn-close {
+    background: #f44336;
+    color: white;
+}
+.popup .btn-submit {
+    background: #4CAF50;
+    color: white;
+}
+
+.step {
+    margin: 0; 
+    padding: 0;
+}
+/* Flex container for Step 3 */
+.step3-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px; /* Increased spacing for a more open feel */
+    margin-top: 20px;
+    padding: 0 20px; /* Adds padding on both sides */
+}
+
+.left-section {
+    flex: 1;
+    min-height: 300px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern look */
+    background-color: #fff;
+}
+
+.left-section h3 {
+    background-color: #020143;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.left-section label {
+    font-size: 16px;
+    color: #020143;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.left-section input[type="number"] {
+    width: 250px; /* Smaller width */
+    padding: 6px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.left-section input[type="number"]:focus {
+    border-color: #020143;
+    background-color: #fff;
+}
+
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: #020143;
+    color: white;
+    transition: background-color 0.3s, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #04025e; /* Slightly lighter/different blue on hover */
+    transform: translateY(-1px);
+}
+
+
+.right-section {
+    width: 500px !important;
+}
+
+.chart-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 600px !important;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sunburst-chart {
+    width: 500px;
+    height: 500px;
+    background-color: #f5f5f5; /* Placeholder background */
+    border-radius: 8px;
+}
+
+.chart-label {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Container Styling */
+#questionsTableContainer {
+    margin-top: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Table Styling */
+#questionsTableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table Header Styling */
+#questionsTableContainer th {
+    background-color: #020143; /* Deep Blue */
+    color: white;
+    font-weight: 600;
+    padding: 14px 16px;
+    text-align: left;
+}
+
+/* Table Cell Styling */
+#questionsTableContainer td {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 14px 16px;
+}
+
+/* Dropdown Styling */
+#questionsTableContainer .cloDropdown {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    transition: border 0.3s;
+}
+
+#questionsTableContainer .cloDropdown:focus {
+    border-color: #020143;
+    outline: none;
+}
+
+/* Input Field Styling */
+#questionsTableContainer input[type="number"] {
+    width: 100px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    transition: border 0.3s;
+}
+
+#questionsTableContainer input[type="number"]:focus {
+    border-color: #020143;
+    outline: none;
+}
+
+/* Add smooth transitions */
+#questionsTableContainer select,
+#questionsTableContainer input {
+    transition: all 0.3s ease;
+}
+
+/* Extra: Style for .cloDetailsContainer if needed */
+.cloDetailsContainer {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #666;
+}
+
+
+
+/* Right section for the progressbars */
+.right-section {
+    flex: 0 0 250px; /* Fixed width */
+    display: flex;
+    justify-content: flex-end; /* Ensures it aligns properly */
+    align-items: flex-start; /* Keeps it at the top */
+}
+
+/* Fix Pie Chart Size */
+.chart-container {
+    width: 190px;
+    height: 190px;
+}
+
+#chart {
+    width: 500px; /* Set a fixed width for more room */
+    height: 500px; /* Set a larger height for better spacing */
+    overflow: hidden; /* Hide overflow content */
+    margin: 0 auto; /* Center the chart */
+}
+
+
+
+/* Progress bars Container with Box */
+.chart-box {
+    border: 1px solid #020143; /* Blue thin border */
+    padding: 10px; /* Adds some spacing inside */
+    text-align: center; /* Centers the text */
+    width: 400px; /* Adjust width to fit the chart */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Label under the pie chart */
+.chart-label {
+    margin-top: 5px; /* Adds some space above the label */
+    font-size: 10px;
+    font-weight: bold;
+    color: #020143; /* Same blue color */
+}
+
+/* Style for the progress bar container */
+.progress-bar-container {
+    margin-top: 20px;
+    min-height: 20px; /* Ensures it is always visible */
+}
+
+/* Style for individual progress bars */
+.progress-bar-item {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Progress Bar Styling */
+.progress-bar {
+    width: 100%;
+    height: 20px; /* Adjust height as needed */
+    background-color: #ddd; /* Light gray background */
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    min-height: 20px; /* Ensures it is always visible */
+}
+
+/* Filled portion of the progress bar */
+.progress-fill {
+    height: 100%;
+    width: 100%;
+    background-color: #020143; /* Green color */
+    text-align: center;
+    color: white; /* Make text visible on dark background */
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+     min-width: 5%; /* Ensures it's never 0 width */
+}
+
+progress {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+}
+
+span {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+:root {
+    --primary-color: #020143; /* Deep blue */
+    --border-color: #020143;
+    --background-color: #F8F9FA; /* Light gray */
+    --input-bg: #FFFFFF;
+    --text-color: #020143;
+    --border-radius: 8px;
+}
+
+/* Step 1: Assessment Information Container */
+#step1,#step2s,#step3s {
+    max-width: 500px;
+    margin: 5px auto;
+    padding: 20px;
+    border: 2px solid var(--border-color); /* Blue border */
+    border-radius: var(--border-radius);
+    background-color: var(--background-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header with Background */
+#step1-header,#step2-headers, #step3-headers {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 12px;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    margin: -20px -20px 20px -20px; /* Extends beyond padding */
+}
+
+/* Labels */
+#step1 label,#step2s label, #step3s label {
+    font-weight: 500;
+    margin-top: 10px;
+    display: block;
+    color: var(--text-color);
+}
+
+/* Inputs & Select */
+#step1 select,
+#step1 input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    background-color: var(--input-bg);
+    transition: 0.3s;
+}
+
+#step1 select:focus,
+#step1 input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(42, 42, 114, 0.3);
+    outline: none;
+}
+
+/* Buttons */
+#step1 button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+#step2s button,
+#step3s button {
+    width: auto;               /* Let the button size wrap its content */
+    min-width: 120px;          /* So they don’t get too tiny */
+    margin: 10px 5px 0 0;      /* Add spacing between multiple buttons */
+    padding: 8px 14px;         /* Slightly smaller padding */
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 14px;           /* Slightly smaller font */
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    display: inline-block;
+}
+
+
+
+#step1 button:hover {
+    background: #4141b3;
+}
+
+
+/* Make Assessment Info a Full-Width Strip */
+.assessment-info-container {
+    background: var(--primary-color); 
+    color: white;
+    border-radius: 8px;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 0; /* Ensure no margin pushes it down */
+    margin-bottom: 0; /* Remove bottom margin to allow it to go up */
+    transition: 0.3s ease-in-out;
+    border: 3px solid rgba(255, 255, 255, 0.7); /* Increased border thickness and opacity */
+}
+
+/* Center the text in the strip */
+.assessment-info {
+    display: flex;
+    gap: 20px;
+}
+
+/* Styling for the Assessment Details Title */
+.assessment-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Assessment Info Styling */
+.assessment-info p {
+    margin: 0;
+    font-size: 16px;
+    color: white; /* Ensure text is visible on primary background */
+}
+
+.assessment-info strong {
+    font-weight: 570;
+    color: white;
+}
+
+.cloInfoTable {
+    border-left: 4px solid #020143;
+    background-color: #f0f4ff;
+    padding: 14px 18px;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cloInfoTable td {
+    padding: 8px;
+    vertical-align: top;
+}
+
+.label-cell {
+    background-color: #020143 !important;   /* Blue background for label cells */
+    color: white;                            /* White text */
+    font-weight: 330 !important;              /* Lighter font for labels */
+}
+
+/* New CSS to style the value cells */
+.value-cell {
+    font-size: 15px; /* Adjust font size to make the values bigger */
+    font-weight: 300; /* Optional: Adjust font weight for values */
+    color: #333; /* Darker color for the values to improve readability */
+}
+
+input[type="number"] {
+    padding: 6px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100px;
+    background-color: #fff;
+}
+
+input[type="number"]:focus {
+    border-color: #020143;
+    outline: none;
+}
+
+.remaining-weight {
+    font-size: 15px;  /* Or however big you want it */
+    font-weight: 300;
+    color: #333;
+}
+
+
+button {
+    margin-top: 10px;
+    background-color: #020143;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #03065f;
+}
+
+.tooltip {
+  box-shadow: 0px 0px 12px rgba(0,0,0,0.3);
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+
+/* Modal */
+.modal {
+  visibility: hidden; /* Initially hidden */
+  position: fixed; 
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  padding-top: 60px;
+  animation: fadeIn 0.3s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* When shown */
+.modal.show {
+  visibility: visible;
+  animation: fadeIn 0.3s ease-out; /* Optional: fade-in effect */
+}
+
+
+/* Modal Content */
+.modal-content {
+  background-color: #f1f4f9;
+  margin: 0;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%; /* Adjust the width of the modal */
+  max-width: 600px; /* Max width to prevent the modal from getting too wide */
+  height: 70%; /* Set a fixed height for the modal */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: scaleUp 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* For absolute positioning of the close button */
+  border: 2px solid #020143; /* Thin blue border around the modal */
+  overflow-y: auto; /* Allows scrolling if the content exceeds the height */
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: center; /* Centering header text */
+  align-items: center;
+  background-color: #020143;
+  padding: 20px 20px; /* Increased padding for a balanced header */
+  color: white;
+  border-radius: 8px 8px 0 0;
+  width: 100%;
+  font-size: 16px; /* Adjusted for better readability */
+  position: absolute;
+  top: 0; /* Ensures the header stays at the top */
+  left: 0;
+}
+
+.modal-footer {
+  background-color: #020143; /* Blue strip like the header */
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Close Button (in header) */
+.close-btn {
+  position: absolute; /* Absolutely positioning the close button */
+  top: 2px; 
+  right: 10px; /* Placing the button to the top-right */
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.close-btn:hover {
+  opacity: 0.7;
+}
+
+/* Modal Message */
+#modalMessage {
+  font-size: 20px;
+  font-weight: 500;
+  color: #020143;
+  line-height: 1.5;
+  padding: 20px;
+  margin-top: 70px;
+  text-align: center;
+  flex-grow: 1; /* Ensures the message area takes remaining space */
+}
+
+/* Close Button at the bottom-right (in modal content) */
+.modal-close-btn {
+  background-color: #020143;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 40px; /* Positioned at the bottom */
+  right: 20px;  /* Positioned at the bottom-right corner */
+}
+
+.modal-close-btn:hover {
+  background-color: #0344b2;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+
+.user-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.bg-img {
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  transition: transform 0.3s;
+}
+
+
+.bg-img:hover {
+  transform: scale(1.2);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 8px; /* Reduced margin-top */
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #020143; /* Thin blue border */
+  border-radius: 12px;
+  padding: 8px 12px; /* Reduced padding */
+  width: 180px;
+  z-index: 100;
+  text-align: center;
+  transform-origin: top right;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.dropdown .profile-pic {
+  width: 80px;
+  height: 80px;
+  margin: 12px auto 12px; /* Added top margin to move it down */
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #020143;
+}
+
+.logout-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* Reduced gap */
+  color: #020143;
+  font-weight: 500;
+  padding: 6px; /* Reduced padding */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-option:hover {
+  background-color: #f0f0f5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 6px 0; /* Reduced margin for divider */
+}
+
+.profile-pic:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#userIcon {
+  background-image: url('OIP.jpg');
+}
+
+.instructor-name {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 2px; /* Reduced margin-top */
+  color: #020143;
+}
+
+.welcome-message {
+  font-size: 16px; /* Slightly smaller font size */
+  font-weight: 500;
+  margin: 4px 0 0 15px; /* Reduced margin */
+  color: #020143;
+}.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 16px 12px;
+  width: 180px;
+  z-index: 100;
+  text-align: center;
+  transform-origin: top right;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.dropdown .profile-pic {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #020143;
+}
+
+.logout-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #020143;
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-option:hover {
+  background-color: #f0f0f5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 12px 0;
+}
+
+.profile-pic:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#userIcon {
+  background-image: url('OIP.jpg');
+  
+}
+
+

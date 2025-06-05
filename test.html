@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outcome-Based Education - CLO Mapping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        input, select {
+            margin: 5px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        th, td {
+            text-align: center;
+        }
+        .remaining {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Outcome-Based Education: CLO Mapping</h1>
+        
+        <!-- CLO Input Section -->
+        <div>
+            <h2>Enter CLOs and Weightages</h2>
+            <div id="cloInputs">
+                <div>
+                    <label for="clo1">CLO1 Weightage:</label>
+                    <input type="number" id="clo1" placeholder="Enter CLO1 Weightage" min="0" max="100">
+                </div>
+                <div>
+                    <label for="clo2">CLO2 Weightage:</label>
+                    <input type="number" id="clo2" placeholder="Enter CLO2 Weightage" min="0" max="100">
+                </div>
+                <div>
+                    <label for="clo3">CLO3 Weightage:</label>
+                    <input type="number" id="clo3" placeholder="Enter CLO3 Weightage" min="0" max="100">
+                </div>
+                <div>
+                    <label for="clo4">CLO4 Weightage:</label>
+                    <input type="number" id="clo4" placeholder="Enter CLO4 Weightage" min="0" max="100">
+                </div>
+                <button onclick="validateAndAddAssessment()">Add Assessment</button>
+            </div>
+        </div>
+
+        <!-- Assessment Setup Section -->
+        <div id="assessmentSection" style="display:none;">
+            <h2>Assessment Mapping</h2>
+            <label for="assessmentType">Assessment Type:</label>
+            <select id="assessmentType">
+                <option value="Quiz">Quiz</option>
+                <option value="Assignment">Assignment</option>
+                <option value="Project">Project</option>
+                <option value="Midterm">Midterm</option>
+                <option value="Lab">Lab</option>
+            </select>
+
+            <label for="numQuestions">Number of Questions:</label>
+            <input type="number" id="numQuestions" placeholder="Enter number of questions" min="1" onchange="generateTable()">
+
+            <div id="questionsTableContainer" class="table-container"></div>
+        </div>
+    </div>
+
+    <script>
+        let cloWeights = {
+            CLO1: 0,
+            CLO2: 0,
+            CLO3: 0,
+            CLO4: 0
+        };
+        
+        let totalWeightage = 100;
+
+        // Step 2: Validate and save CLO weights
+        function validateAndAddAssessment() {
+            const clo1 = parseFloat(document.getElementById('clo1').value);
+            const clo2 = parseFloat(document.getElementById('clo2').value);
+            const clo3 = parseFloat(document.getElementById('clo3').value);
+            const clo4 = parseFloat(document.getElementById('clo4').value);
+            
+            // Validate that the CLO weightages sum to 100
+            const total = clo1 + clo2 + clo3 + clo4;
+            if (total !== 100) {
+                alert("Total weightage for all CLOs must equal 100.");
+                return;
+            }
+
+            cloWeights = {
+                CLO1: clo1,
+                CLO2: clo2,
+                CLO3: clo3,
+                CLO4: clo4
+            };
+
+            // Show the assessment section
+            document.getElementById('assessmentSection').style.display = "block";
+        }
+
+        // Step 3: Generate table based on number of questions
+        function generateTable() {
+            const numQuestions = parseInt(document.getElementById('numQuestions').value);
+            if (numQuestions < 1) return;
+
+            let tableHTML = <table>
+                <thead>
+                    <tr>
+                        <th>Questions</th>
+                        <th>CLO1</th>
+                        <th>CLO2</th>
+                        <th>CLO3</th>
+                        <th>CLO4</th>
+                    </tr>
+                </thead>
+                <tbody>;
+
+            // Create rows for each question
+            for (let i = 1; i <= numQuestions; i++) {
+                tableHTML += 
+                    <tr>
+                        <td>Q${i}</td>
+                        <td><input type="number" class="weightInput" data-clo="CLO1" data-question="Q${i}" onchange="updateRemaining()"></td>
+                        <td><input type="number" class="weightInput" data-clo="CLO2" data-question="Q${i}" onchange="updateRemaining()"></td>
+                        <td><input type="number" class="weightInput" data-clo="CLO3" data-question="Q${i}" onchange="updateRemaining()"></td>
+                        <td><input type="number" class="weightInput" data-clo="CLO4" data-question="Q${i}" onchange="updateRemaining()"></td>
+                    </tr>
+                ;
+            }
+
+            tableHTML += 
+                <tr class="remaining">
+                    <td>Remaining</td>
+                    <td id="remainingCLO1">100%</td>
+                    <td id="remainingCLO2">100%</td>
+                    <td id="remainingCLO3">100%</td>
+                    <td id="remainingCLO4">100%</td>
+                </tr>
+            </tbody>
+        </table>;
+
+            document.getElementById('questionsTableContainer').innerHTML = tableHTML;
+        }
+
+        // Step 4: Update remaining percentages dynamically
+        function updateRemaining() {
+            let remaining = {
+                CLO1: cloWeights.CLO1,
+                CLO2: cloWeights.CLO2,
+                CLO3: cloWeights.CLO3,
+                CLO4: cloWeights.CLO4
+            };
+
+            // Calculate remaining CLO weightages based on assigned weights
+            document.querySelectorAll('.weightInput').forEach(input => {
+                const clo = input.dataset.clo;
+                const assignedWeight = parseFloat(input.value) || 0;
+                remaining[clo] -= assignedWeight;
+            });
+
+            // Update remaining percentages in the table
+            document.getElementById('remainingCLO1').textContent = ${remaining.CLO1}%;
+            document.getElementById('remainingCLO2').textContent = ${remaining.CLO2}%;
+            document.getElementById('remainingCLO3').textContent = ${remaining.CLO3}%;
+            document.getElementById('remainingCLO4').textContent = ${remaining.CLO4}%;
+        }
+    </script>
+</body>
+</html>

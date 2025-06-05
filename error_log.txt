@@ -1,0 +1,5 @@
+2025-03-05 13:03:00 - Cannot add or update a child row: a foreign key constraint fails (`obe`.`studentmoduleregistrations`, CONSTRAINT `studentmoduleregistrations_ibfk_2` FOREIGN KEY (`RegisteredModuleID`) REFERENCES `modules` (`RegisteredModuleID`))
+2025-03-05 18:10:07 - Column 'ModuleGroup' cannot be null
+2025-03-05 18:57:17 - Column 'RegisteredCourseName' cannot be null
+2025-03-05 18:58:57 - Column 'RegisteredCourseName' cannot be null
+2025-03-05 19:00:31 - Column 'RegisteredCourseName' cannot be null

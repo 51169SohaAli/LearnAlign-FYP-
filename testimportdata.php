@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses | OBE-Incharge Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="sidebar close">
+    <div class="logo-details">
+        <img src="logo.png" alt="logo">
+        <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a href="obeinchargedashboard.html">
+                <i class='bx bx-grid-alt'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="obeinchargedashboard.html">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="obeioutcomes.html">
+                <i class='bx bx-bullseye'></i>
+                <span class="link_name">Outcomes</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="obeioutcomes.html">Outcomes</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="obeicourses.html">
+                <i class='bx bx-book-alt'></i>
+                <span class="link_name">Courses</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="obeicourses.html">Courses</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="obeiprograms.html">
+                <i class='bx bx-bullseye'></i>
+                <span class="link_name">Programs</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="obeiprograms.html">Programs</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<section class="home-section" style="background-color: #fff;">
+    <div class="home-content">
+        <i class='bx bx-menu'></i>
+        <div class="header-menu">
+            <div class="notify-icon">
+                <span class="bx bx-envelope"></span>
+                <span class="notify">4</span>
+            </div>
+
+            <div class="notify-icon">
+                <span class="bx bx-bell"></span>
+                <span class="notify">3</span>
+            </div>
+
+            <div class="user">
+                <div class="bg-img" style="background-image: url(1.jpeg)"></div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="page-header">
+            <h1>Courses</h1>
+            <small>Home / Courses</small>
+        </div>
+
+        <div class="page-content">
+            <div class="records table-responsive">
+                <div class="record-header">
+                    <div class="add">
+                        <span>Entries</span>
+                        <select name="" id="">
+                            <option value="">1-25</option>
+                            <option value="">1-100</option>
+                            <option value="">1-500</option>
+                        </select>
+                        <a href="obeiaddcourses.html"><button class="btn-open-popup"><i class='bx bx-plus'></i>Add Courses</button></a>
+                    </div>
+
+                    <div class="browse">
+                        <form action="import.php" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="file" accept=".xlsx" required>
+    <button type="submit" name="import" class="btn-open-popup">Import Data</button>
+</form>
+
+                    </div>
+                </div>
+
+                <div>
+                    <h2 style="color:#020143">Courses</h2>
+                    <table id="cloTable" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Course ID</th>
+                            <th>Course Name</th>
+                            <th>Credits</th>
+                            <th>Instructor ID</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        // Database connection
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "obe";
+
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+
+                        // Fetch courses from database
+                        $result = $conn->query("SELECT * FROM courses");
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>
+                                        <td>" . htmlspecialchars($row["course_id"]) . "</td>
+                                        <td>" . htmlspecialchars($row["course_name"]) . "</td>
+                                        <td>" . htmlspecialchars($row["credits"]) . "</td>
+                                        <td>" . htmlspecialchars($row["instructor_id"]) . "</td>
+                                      </tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='4'>No courses found.</td></tr>";
+                        }
+
+                        $conn->close();
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</section>
+
+<script>
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement; // selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
+        });
+    }
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
+</script>
+</body>
+</html>

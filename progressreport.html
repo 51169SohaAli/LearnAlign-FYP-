@@ -1,0 +1,294 @@
+<?php
+// Database connection
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$db = 'obe';
+$conn = new mysqli($host, $user, $password, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get course ID
+$courseId = $_GET['course_id'] ?? '';
+
+if (!$courseId) {
+    echo "Course ID not provided.";
+    exit;
+}
+
+// Fetch students
+$students = [];
+$res = $conn->query("SELECT student_id, student_name FROM students WHERE course_id = '$courseId'");
+while ($row = $res->fetch_assoc()) {
+    $students[$row['student_id']] = $row['student_name'];
+}
+
+// Fetch CLOs
+$clos = [];
+$res = $conn->query("SELECT clo_id, clo, weightage FROM clo WHERE course_id = '$courseId'");
+while ($row = $res->fetch_assoc()) {
+    $clos[$row['clo_id']] = [
+        'name' => $row['clo'],
+        'weightage' => $row['weightage'],
+        'assessments' => [] // will fill later
+    ];
+}
+
+// Fetch question mappings and student marks
+$sql = "
+SELECT 
+    cqa.clo_id, cqa.weightage AS clo_question_weightage,
+    q.question_id, q.assessment_id, q.question_number, q.total_marks,
+    a.assessment_type,
+    sm.student_id, sm.obtained_marks
+FROM clo_question_assignment cqa
+JOIN questions q ON cqa.question_id = q.question_id
+JOIN assessments a ON q.assessment_id = a.assessment_id
+JOIN student_marks sm ON sm.question_id = q.question_id
+WHERE q.course_id = '$courseId'
+";
+
+$res = $conn->query($sql);
+
+// Organize data
+$data = [];
+while ($row = $res->fetch_assoc()) {
+    $studentId = $row['student_id'];
+    $cloId = $row['clo_id'];
+    $assessmentType = $row['assessment_type'];
+    $questionId = $row['question_id'];
+    $obtained = $row['obtained_marks'];
+    $total = $row['total_marks'];
+    $weightage = $row['clo_question_weightage'];
+
+    // Calculate obtained CLO weightage from this question
+    $obtainedWeight = ($total > 0) ? ($obtained / $total) * $weightage : 0;
+
+    // Track by student and CLO
+    if (!isset($data[$studentId][$cloId])) {
+        $data[$studentId][$cloId] = [
+            'obtained' => 0,
+            'assessments' => []
+        ];
+    }
+    $data[$studentId][$cloId]['obtained'] += $obtainedWeight;
+
+    // Group by assessment
+    if (!isset($data[$studentId][$cloId]['assessments'][$assessmentType])) {
+        $data[$studentId][$cloId]['assessments'][$assessmentType] = 0;
+    }
+    $data[$studentId][$cloId]['assessments'][$assessmentType] += $obtainedWeight;
+
+    // Also store this assessment under CLOs (for header display)
+    if (!isset($clos[$cloId]['assessments'][$assessmentType])) {
+        $clos[$cloId]['assessments'][$assessmentType] = $weightage; // just show 1st weightage
+    }
+}
+
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Instructor Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar close">
+    <div class="logo-details">
+      <img src="logo.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="InstructorDashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="InstructorDashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="outcomes.html">
+          <i class='bx bx-bullseye' ></i>
+          <span class="link_name">Outcomes</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="outcomes.html">Outcomes</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="courses.html">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Courses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="courses.html">Courses</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="assessment.html">
+          <i class='bx bx-list-check'></i>
+          <span class="link_name">Assessments</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="assessment.html">Assessments</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="progressreport.php">
+          <i class='bx bx-line-chart' ></i>
+          <span class="link_name">Progress Report</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="progressreport.php">Progress Report</a></li>
+        </ul>
+      </li>
+      <li>
+          <a href="feedback.html">
+            <i class='bx bx-comment' ></i>
+            <span class="link_name">Feedback</span>
+          </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="feedback.html">Feedback</a></li>
+        </ul>
+      </li>
+  </li>
+</ul>
+  </div>
+  <section class="home-section" style="background-color: #fff;">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <div class="header-menu">
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-envelope"></span>
+                        <span class="notify">4</span>
+                    </div>
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-bell"></span>
+                        <span class="notify">3</span>
+                    </div>
+                    
+                    <div class="user">
+                        <div class="bg-img" style="background-image: url(1.jpeg)"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <main>
+            
+            <div class="page-header">
+                <h1>Progress Report</h1>
+                <small>Home / Dashboard</small>
+            </div>
+            
+            <div class="page-content">
+
+                <div class="browse">
+  <label for="course_id">Courses:</label>
+    <select id="course_id">
+        <option value="" disabled selected>Loading...</option>
+    </select>
+    <input type="hidden" id="courseId" value="101">
+</div>
+
+<table id="report-table" border="1">
+  <thead>
+    <tr>
+      <th rowspan="2">Student ID</th>
+      <th rowspan="2">Student Name</th>
+      <!-- The following headers will be dynamic: one for each CLO -->
+      <?php foreach($clos as $clo): ?>
+        <th colspan="2"><?php echo $clo['clo']; ?> <br>(Total: <?php echo $clo['weightage']; ?>)</th>
+      <?php endforeach; ?>
+      <th rowspan="2">CLO Coverage (%)</th>
+    </tr>
+    <tr>
+      <?php foreach($clos as $clo): ?>
+        <!-- You might use these for showing assessment breakdown, e.g. -->
+        <th>Obtained</th>
+        <th>%</th>
+      <?php endforeach; ?>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($reportData as $studentId => $data): ?>
+      <tr>
+        <td><?php echo $studentId; ?></td>
+        <td><?php echo $data['student_name']; ?></td>
+        <?php 
+          $overallObtained = 0;
+          $overallWeightage = 0;
+          foreach($clos as $clo): 
+            $cloData = $data['clos'][$clo['clo_id']];
+            $overallObtained += $cloData['obtainedCloWeightage'];
+            $overallWeightage += $cloData['totalCloWeightage'];
+        ?>
+          <td><?php echo round($cloData['obtainedCloWeightage'], 2); ?></td>
+          <td><?php echo $cloData['percentage']; ?>%</td>
+        <?php endforeach; ?>
+        <td><?php echo ($overallWeightage > 0) ? round(($overallObtained/$overallWeightage)*100,2) : 0; ?>%</td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+
+            </div>
+        </div> 
+        </main>
+      </section>
+        <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+ <script>
+document.getElementById("course_id").addEventListener("change", function() {
+    const selectedCourseId = this.value;
+    document.getElementById("courseId").value = selectedCourseId;
+});
+
+function fetchCourses() {
+    fetch("fetchcourses.php")
+        .then(response => response.json())
+        .then(data => {
+            const courseSelect = document.getElementById("course_id");
+            courseSelect.innerHTML = '<option value="">Select a Course</option>';
+            data.forEach(course => {
+    courseSelect.innerHTML += `<option value="${course.course_id}">${course.course_id}:${course.course_name}</option>`;
+});
+
+        })
+        .catch(error => console.error("Error fetching courses:", error));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetchCourses();
+});
+</script>
+</body>
+</html>

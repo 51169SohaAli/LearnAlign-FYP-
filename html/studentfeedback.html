@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar close">
+    <div class="logo-details">
+      <img src="logo.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="StudentDashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="StudentDashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+       <li>
+        <a href="studentcourses.html">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Courses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="studentcourses.html">courses</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="studentprogressreport.html">
+          <i class='bx bx-line-chart' ></i>
+          <span class="link_name">Progress Report</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="studentprogressreport.html">Progress Report</a></li>
+        </ul>
+      </li>
+      <li>
+          <a href="studentfeedback.html">
+            <i class='bx bx-comment' ></i>
+            <span class="link_name">Feedback</span>
+          </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="studentfeedback.html">Feedback</a></li>
+        </ul>
+      </li>
+  </li>
+</ul>
+  </div>
+  <section class="home-section" style="background-color: #fff;">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <div class="header-menu">
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-envelope"></span>
+                        <span class="notify">4</span>
+                    </div>
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-bell"></span>
+                        <span class="notify">3</span>
+                    </div>
+                    
+                    <div class="user">
+                        <div class="bg-img" style="background-image: url(1.jpeg)"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <main>
+            
+            <div class="page-header">
+                <h1>Feedback</h1>
+                <small>Home / Feedback</small>
+            </div>
+             <div class="page-content">
+       <div class="feedback-container">
+  <div class="feedback-item">
+    <label for="teacher">From Teacher:</label>
+    <span id="teacher">Ma'am Hajra Murtaza</span>
+  </div>
+  <div class="feedback-item">
+    <label for="subject">Subject:</label>
+    <span id="subject">Quiz 1</span>
+  </div>
+  <div class="feedback-item">
+    <label for="feedback">Feedback:</label>
+    <span id="feedback">You did good</span>
+  </div>
+</div>
+            
+        </main>
+  </section>
+
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+</body>
+</html>

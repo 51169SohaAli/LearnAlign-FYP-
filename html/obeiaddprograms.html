@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Programs</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="sidebar close">
+    <div class="logo-details">
+      <img src="logo.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="obeinchargedashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeinchargedashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="obeioutcomes.html">
+          <i class='bx bx-bullseye' ></i>
+          <span class="link_name">Outcomes</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeioutcomes.html">Outcomes</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="obeicourses.php">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Courses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeicourses.php">Courses</a></li>
+        </ul>
+      </li><li>
+        <a href="obeiprograms.html">
+          <i class='bx bx-bullseye' ></i>
+          <span class="link_name">Programs</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="obeiprograms.html">Programs</a></li>
+        </ul>
+      </li>
+</ul>
+  </div>
+    <section class="home-section" style="background-color: #fff;">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <div class="header-menu">
+                <div class="notify-icon">
+                    <span class="bx bx-envelope"></span>
+                    <span class="notify">4</span>
+                </div>
+                <div class="notify-icon">
+                    <span class="bx bx-bell"></span>
+                    <span class="notify">3</span>
+                </div>
+                <div class="user">
+                    <div class="bg-img" style="background-image: url(1.jpeg)"></div>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <div class="page-header">
+                <h1>Add Programs</h1>
+                <small>Home / Programs / Add Programs</small>
+            </div>
+
+            <div class="page-content">
+                <div class="main-form-container" style="background-color: #eeeeef; padding: 20px; border-radius: 12px; margin: 20px auto; width: 90%; max-width: 800px;">
+                    <div class="form-header">
+                        <h4 class="popup-title">Program Creation</h4>
+                    </div>
+                    <form class="form-container" onsubmit="return false;">
+                     <div class="input-group">
+                            <label class="form-label" for="totalWeightage">Program ID: </label>
+                            <input type="number" id="totalWeightage" name="totalWeightage" placeholder="Enter Program ID" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="form-label" for="totalWeightage">Program Name:</label>
+                            <input type="number" id="totalWeightage" name="totalWeightage" placeholder="Enter Program Name" required>
+                        </div>
+                       
+                    
+
+                      <div class="input-group" id="cloTableContainer" style="display: none;">
+    <label class="form-label" for="mappedclos">Mapped PLOs:</label>
+    <table id="ploTable">
+        <thead>
+            <tr>
+                <th>PLO</th>
+                <th>Description</th>
+                <th>Weightage (%)</th>
+            </tr>
+        </thead>
+        <tbody id="ploTableBody">
+            <!-- CLO rows will be inserted here dynamically -->
+        </tbody>
+    </table>
+</div>
+
+                        <div class="input-group">
+    <label class="form-label" for="ploDropdown">Available PLOs:</label>
+    <select id="ploDropdown" name="ploDropdown" required>
+        <option value="" disabled selected>Select a PLO</option>
+        <!-- CLO options will be dynamically added here -->
+    </select>
+</div>
+
+                       
+
+
+                       
+                        <div class="button-container">
+                            <button type="button" class="btn-submit" onclick="submitForm()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="editModal" class="popup">
+    <textarea id="editTextArea" rows="3" placeholder="Enter question description"></textarea>
+    <div>
+        <button class="btn-close" onclick="closePopup()">Close</button>
+        <button class="btn-submit" id="saveEditButton" onclick="saveEdit()">Save</button>
+    </div>
+</div>
+        </main>
+    </section><script>
+        let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+    </script>
+
+    <script>
+   document.addEventListener('DOMContentLoaded', () => {
+    const courseId = 123; // Replace with your course ID dynamically (e.g., from a dropdown)
+    fetchCLOs(courseId);
+});
+
+function fetchCLOs(courseId) {
+    fetch(`getclos.php?course_id=${courseId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch CLOs: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                console.error('Error:', data.error);
+            } else {
+                populateCLODropdown(data);
+            }
+        })
+        .catch(error => console.error('Error fetching CLOs:', error));
+}
+
+function populateCLODropdown(data) {
+    const cloDropdown = document.getElementById('cloDropdown');
+    cloDropdown.innerHTML = '<option value="" disabled selected>Select a CLO</option>'; // Reset options
+    data.forEach(clo => {
+        const option = document.createElement('option');
+        option.value = clo.clo; // Use the CLO field as the value
+        option.textContent = `${clo.clo}: ${clo.description}`;
+        cloDropdown.appendChild(option);
+    });
+}
+
+    </script>
+  <script type="text/javascript" src="script.js"></script>  
+</body>
+</html>

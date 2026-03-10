@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Outcomes|Instructor Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar close">
+    <div class="logo-details">
+      <img src="logo.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="InstructorDashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="InstructorDashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="outcomes.html">
+          <i class='bx bx-bullseye' ></i>
+          <span class="link_name">Outcomes</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="outcomes.html">Outcomes</a></li>
+        </ul>
+      </li>
+      <li>
+       <li>
+        <a href="courses.html">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Courses</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="courses.html">Courses</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="assessment.html">
+          <i class='bx bx-list-check'></i>
+          <span class="link_name">Assessments</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="assessment.html">Assessments</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="progressreport.html">
+          <i class='bx bx-line-chart' ></i>
+          <span class="link_name">Progress Report</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="progressreport.html">Progress Report</a></li>
+        </ul>
+      </li>
+      <li>
+          <a href="feedback.html">
+            <i class='bx bx-comment' ></i>
+            <span class="link_name">Feedback</span>
+          </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="feedback.html">Feedback</a></li>
+        </ul>
+      </li>
+  </li>
+</ul>
+  </div>
+  <section class="home-section" style="background-color: #fff;">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <div class="header-menu">
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-envelope"></span>
+                        <span class="notify">4</span>
+                    </div>
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-bell"></span>
+                        <span class="notify">3</span>
+                    </div>
+                    
+                    <div class="user">
+                        <div class="bg-img" style="background-image: url(1.jpeg)"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <main>
+            
+            <div class="page-header">
+                <h1>Outcomes</h1>
+                <small>Home / Outcomes</small>
+            </div>
+            
+            <div class="page-content">
+        
+                <div class="records table-responsive">
+
+                    <div class="record-header">
+                        <div class="add">
+                            <span>Entries</span>
+                            <select name="" id="">
+                                <option value="">1-25</option>
+                                <option value="">1-100</option>
+                                <option value="">1-500</option>
+                            </select>
+                        </div>
+
+
+                        <div class="browse">
+                           <input type="search" placeholder="Search" class="record-search">
+                            <button class="btn-open-popup">Import Data</button>
+                        </div>
+                    </div>
+
+                <div>
+
+            <h2 style="color:#020143">Course Learning Outcomes (CLOs)</h2>
+            <table id="cloTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>CLO</th>
+                        <th>Description</th>
+                        <th>Mapped PLO</th>
+                        <th>Course ID</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- PLO Table -->
+        <div class="records table-responsive">
+            <h2 style="color: #020143">Program Learning Outcomes (PLOs)</h2>
+            <table id="ploTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>PLO</th>
+                        <th>Description</th>
+                        <th>Mapped PEO</th>
+                        <th>Program ID</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- PEO Table -->
+        <div class="records table-responsive">
+            <h2 style="color: #020143">Program Education Outcomes (PEOs)</h2>
+            <table id="peoTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>PEO</th>
+                        <th>Description</th>
+                        <th>Program ID</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>      
+            </div>
+            
+        </main>
+  </section>
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('fetchcloplopeo.php')
+                .then(response => response.json())
+                .then(data => {
+                    // Populate CLO table
+                    const cloTableBody = document.querySelector('#cloTable tbody');
+                    data.clo.forEach(row => {
+                        cloTableBody.innerHTML += `
+                            <tr>
+                                <td>${row.clo}</td>
+                                <td>${row.description}</td>
+                                <td>${row.plo}</td>
+                                <td>${row.course_id}</td>
+                            </tr>
+                        `;
+                    });
+
+                    // Populate PLO table
+                    const ploTableBody = document.querySelector('#ploTable tbody');
+                    data.plo.forEach(row => {
+                        ploTableBody.innerHTML += `
+                            <tr>
+                                <td>${row.plo}</td>
+                                <td>${row.description}</td>
+                                <td>${row.peo}</td>
+                                <td>${row.program_id}</td>
+                            </tr>
+                        `;
+                    });
+
+                    // Populate PEO table
+                    const peoTableBody = document.querySelector('#peoTable tbody');
+                    data.peo.forEach(row => {
+                        peoTableBody.innerHTML += `
+                            <tr>
+                                <td>${row.peo}</td>
+                                <td>${row.description}</td>
+                                <td>${row.program_id}</td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
+</html>

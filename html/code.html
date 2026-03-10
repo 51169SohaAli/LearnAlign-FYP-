@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Drop Down Sidebar Menu | CodingLab </title>
+    <link rel="stylesheet" href="code.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="sidebar close">
+    <div class="logo-details">
+      <img src="logo.png"alt="logo">
+      <span class="logo_name">LearnAlign</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="InstructorDashboard.html">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Dashboard</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="InstructorDashboard.html">Dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-bullseye' ></i>
+            <span class="link_name">Outcomes</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Outcomes</a></li>
+          <li><a href="outcomesbsse.html">BSSE</a></li>
+          <li><a href="outcomesbscs.html">BSCS</a></li>
+          <li><a href="outcomesbca.html">BCA</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Courses</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Courses</a></li>
+          <li><a href="coursesbsse.html">BSSE</a></li>
+          <li><a href="coursesbscs.html">BSCS</a></li>
+          <li><a href="coursesbca.html">BCA</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+        <a href="#">
+          <i class='bx bx-list-check' ></i>
+          <span class="link_name">Assessments</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow' ></i>
+      </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Assessments</a></li>
+          <li><a href="assessmentsbsse.html">BSSE</a></li>
+          <li><a href="assessmentsbscs.html">BSCS</a></li>
+          <li><a href="assessmentsbca.html">BCA</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-line-chart' ></i>
+          <span class="link_name">Progress Report</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="progressreport.html">Progress Report</a></li>
+        </ul>
+      </li>
+      <li>
+          <a href="#">
+            <i class='bx bx-comment' ></i>
+            <span class="link_name">Feedback</span>
+          </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="feedback.html">Feedback</a></li>
+        </ul>
+      </li>
+  </li>
+</ul>
+  </div>
+  <section class="home-section" style="background-color: #fff;">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <div class="header-menu">
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-envelope"></span>
+                        <span class="notify">4</span>
+                    </div>
+                    
+                    <div class="notify-icon">
+                        <span class="bx bx-bell"></span>
+                        <span class="notify">3</span>
+                    </div>
+                    
+                    <div class="user">
+                        <div class="bg-img" style="background-image: url(1.jpeg)"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <main>
+            
+            <div class="page-header">
+                <h1>Assessment</h1>
+                <small>Home / Assessment</small>
+            </div>
+            
+            <div class="page-content">
+        
+                <div class="records table-responsive">
+
+                    <div class="record-header">
+                        <div class="add">
+                            <span>Entries</span>
+                            <select name="" id="">
+                                <option value="">#1</option>
+                                <option value="">#2</option>
+                                <option value="">#3</option>
+                                <option value="">#4</option>
+                                <option value="">#5</option>
+                                <option value="">#6</option>
+                            </select>
+                            <button class="btn-open-popup" onclick="togglePopup()"><i class='bx bx-plus'></i>Add new Assessment</button>
+                        </div>
+      <div id="popupOverlay" class="overlay-container">
+    <div class="popup-box">
+        <div class="popup-header">
+            <h4 class="popup-title">Assessment Creation</h4>
+        </div>
+        <form class="form-container" onsubmit="return false;">
+            <!-- Assessment and Course Selection -->
+            <div class="input-group">
+            <label class="form-label" for="assessmenttype">Assessment Type:</label>
+            <select id="assessmenttype" name="assessmenttype">
+                <option>Choose Assessment Type</option>
+                <option>Midterm</option>
+                <option>FinalTerm</option>
+                <option>Assignment</option>
+                <option>Quiz</option>
+                <option>Project</option>
+                <option>Lab</option>
+            </select>
+        </div>
+
+            <div class="input-group">
+            <label class="form-label" for="courseid">Course ID:</label>
+            <select id="courseid" name="courseid">
+                <option>CS2144</option>
+                <option>CS4133</option>
+                <option>CS3104</option>
+                <option>CS4123</option>
+                <option>SE4223</option>
+            </select>
+        </div>
+
+            <!-- Total Weightage -->
+            <div class="input-group">
+            <label class="form-label" for="totalWeightage">Weightage for Assessment:</label>
+            <input type="number" id="totalWeightage" name="totalWeightage" placeholder="Enter total weightage" required>
+            </div>
+            
+            <div class="input-group">
+            <label class="form-label" for="mappedclos">Mapped CLOs:</label>
+            <div id="cloCheckboxContainer">
+            <input type="checkbox" id="clo1" name="clo" value="CLO 1" onchange="updateCLOs(this)">
+            <label for="clo1">CLO 1</label><br>
+            <input type="checkbox" id="clo2" name="clo" value="CLO 2" onchange="updateCLOs(this)">
+            <label for="clo2">CLO 2</label><br>
+            <input type="checkbox" id="clo3" name="clo" value="CLO 3" onchange="updateCLOs(this)">
+            <label for="clo3">CLO 3</label><br>
+            <input type="checkbox" id="clo4" name="clo" value="CLO 4" onchange="updateCLOs(this)">
+            <label for="clo4">CLO 4</label><br>
+            <input type="checkbox" id="clo5" name="clo" value="CLO 5" onchange="updateCLOs(this)">
+            <label for="clo5">CLO 5</label><br><br>
+        </div>
+    </div>
+
+            <div id="selectedCLOsContainer"></div>
+
+            <!-- Questions Section -->
+            <div class="input-group">
+            <label class="form-label" for="questions">Questions:</label>
+            <div id="questionsContainer">
+                <div class="question" id="question1-container">
+                    <label for="question1">Question 1:</label><br>
+                    <textarea id="question1" rows="3" placeholder="Enter question description"></textarea>
+                    <div class="mapping-container" id="question1-mappings"></div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Buttons -->
+        
+    <button class="btn-add-question" onclick="addNewQuestion()">Add New Question</button><br>
+        </form>
+
+       <div class="button-container">
+    <button type="button" class="btn-submit" onclick="submitForm()">Submit</button>
+    <button type="button" class="btn-close-popup" onclick="togglePopup()">Close</button>
+</div>
+    </div>
+</div>
+
+<script>
+    let allocatedCLOs = {};
+    let remainingCLOs = {};
+    let questionCount = 1;
+    let distributionTracker = {}; // To track CLO distribution per question
+
+    function updateCLOs(checkbox) {
+        const container = document.getElementById("selectedCLOsContainer");
+        
+        if (checkbox.checked) {
+            // Create a new div for selected CLO with weightage input
+            const cloDiv = document.createElement("div");
+            cloDiv.classList.add("clo-weightage");
+            cloDiv.id = checkbox.id + "-container";
+
+            const label = document.createElement("label");
+            label.textContent = checkbox.value;
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.placeholder = "Enter weightage";
+            input.name = checkbox.id + "-weightage";
+            input.required = true;
+            input.oninput = () => updateCLOWeightage(checkbox.id, input.value);
+
+            cloDiv.appendChild(label);
+            cloDiv.appendChild(input);
+            container.appendChild(cloDiv);
+        } else {
+            const cloDiv = document.getElementById(checkbox.id + "-container");
+            if (cloDiv) container.removeChild(cloDiv);
+            delete allocatedCLOs[checkbox.id];
+            delete remainingCLOs[checkbox.id];
+        }
+    }
+
+    function updateCLOWeightage(cloId, weightage) {
+        if (weightage === "") {
+            delete allocatedCLOs[cloId];
+            delete remainingCLOs[cloId];
+        } else {
+            allocatedCLOs[cloId] = Number(weightage);
+            remainingCLOs[cloId] = Number(weightage);
+            addCLOMappingToQuestion("question1", cloId);
+        }
+    }
+
+    function addCLOMappingToQuestion(questionId, cloId) {
+        const questionMappings = document.getElementById(`${questionId}-mappings`);
+        if (!distributionTracker[cloId]) distributionTracker[cloId] = {};
+
+        let mappingDiv = document.getElementById(`${questionId}-${cloId}-mapping`);
+        if (!mappingDiv) {
+            mappingDiv = document.createElement("div");
+            mappingDiv.classList.add("clo-mapping");
+            mappingDiv.id = `${questionId}-${cloId}-mapping`;
+
+            const label = document.createElement("label");
+            label.textContent = `Map weightage for ${cloId}:`;
+
+            const input = document.createElement("input");
+            input.type = "number";
+            input.placeholder = `Enter weightage for ${cloId}`;
+            input.oninput = () => distributeWeightage(cloId, input.value, questionId);
+
+            mappingDiv.appendChild(label);
+            mappingDiv.appendChild(input);
+            questionMappings.appendChild(mappingDiv);
+        }
+    }
+
+    function distributeWeightage(cloId, assignedWeightage, questionId) {
+        const totalWeightage = allocatedCLOs[cloId] || 0;
+        const assignedWeight = Number(assignedWeightage);
+
+        if (!distributionTracker[cloId]) distributionTracker[cloId] = {};
+        distributionTracker[cloId][questionId] = assignedWeight;
+
+        // Calculate remaining weightage for each CLO
+        const totalAssigned = Object.values(distributionTracker[cloId]).reduce((sum, val) => sum + (val || 0), 0);
+        remainingCLOs[cloId] = totalWeightage - totalAssigned;
+    }
+
+    function addNewQuestion() {
+        questionCount++;
+        const questionsContainer = document.getElementById("questionsContainer");
+
+        const newQuestionDiv = document.createElement("div");
+        newQuestionDiv.classList.add("question");
+        newQuestionDiv.id = `question${questionCount}-container`;
+
+        const questionLabel = document.createElement("label");
+        questionLabel.textContent = `Question ${questionCount}:`;
+        newQuestionDiv.appendChild(questionLabel);
+
+        const questionTextarea = document.createElement("textarea");
+        questionTextarea.id = `question${questionCount}`;
+        questionTextarea.rows = 3;
+        questionTextarea.placeholder = "Enter question description";
+        newQuestionDiv.appendChild(questionTextarea);
+
+        const mappingsDiv = document.createElement("div");
+        mappingsDiv.classList.add("mapping-container");
+        mappingsDiv.id = `question${questionCount}-mappings`;
+        newQuestionDiv.appendChild(mappingsDiv);
+
+        questionsContainer.appendChild(newQuestionDiv);
+
+        Object.keys(allocatedCLOs).forEach(cloId => addCLOMappingToQuestion(`question${questionCount}`, cloId));
+    }
+
+    function submitForm() {
+        const remainingCLOsList = Object.entries(remainingCLOs).filter(([_, remaining]) => remaining > 0);
+        
+        if (remainingCLOsList.length > 0) {
+            let message = "Some CLO weightages are not fully distributed:\n";
+            remainingCLOsList.forEach(([cloId, remaining]) => {
+                message += `${cloId}: ${remaining}% remaining\n`;
+            });
+            alert(message);
+        } else {
+            alert("Form submitted successfully!");
+        }
+    }
+
+    function togglePopup() {
+        const overlay = document.getElementById('popupOverlay');
+        overlay.classList.toggle('show');
+    }
+</script>
+
+
+
+
+                        <div class="browse">
+                           <input type="search" placeholder="Search" class="record-search">
+                            <select name="" id="">
+                                <option value="">Status</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th><span class="las la-sort"></span> CLO</th>
+                                    <th><span class="las la-sort"></span> Description</th>
+                                    <th><span></span></th>
+                                    <th><span class="las la-sort"></span>Mapped PLOs</th>
+                                    <th><span class="las la-sort"></span>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(3.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Andrew Bruno</h4>
+                                                <small>bruno@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $3171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        -$205
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(1.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Exty Bruno</h4>
+                                                <small>exty@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $3171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        -$205
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(1.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Exty Bruno</h4>
+                                                <small>exty@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $2171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        <span class="paid">Paid</span>
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(3.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Andrew Bruno</h4>
+                                                <small>bruno@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $3171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        -$205
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(1.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Exty Bruno</h4>
+                                                <small>exty@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $3171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        <span class="paid">Paid</span>
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(1.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Exty Bruno</h4>
+                                                <small>exty@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $2171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        <span class="paid">Paid</span>
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(3.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Andrew Bruno</h4>
+                                                <small>bruno@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $3171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        -$205
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(1.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Exty Bruno</h4>
+                                                <small>exty@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $3171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        -$205
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#5033</td>
+                                    <td>
+                                        <div class="client">
+                                           <div class="client-img bg-img" style="background-image: url(1.jpeg)"></div>
+                                            <div class="client-info">
+                                                <h4>Exty Bruno</h4>
+                                                <small>exty@crossover.org</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $2171
+                                    </td>
+                                    <td>
+                                        19 April, 2022
+                                    </td>
+                                    <td>
+                                        <span class="paid">Paid</span>
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <span class="lab la-telegram-plane"></span>
+                                            <span class="las la-eye"></span>
+                                            <span class="las la-ellipsis-v"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            
+            </div>
+            
+        </main>
+  </section>
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+</body>
+</html>

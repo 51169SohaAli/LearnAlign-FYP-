@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Assessment</title>
+    <link rel="stylesheet" href="style.css">
+     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="sidebar close">
+        <div class="logo-details">
+            <img src="LearnAlign Logo Final.png" alt="logo">
+            <span class="logo_name">LearnAlign</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="InstructorDashboard.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="InstructorDashboard.html">Dashboard</a></li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="courses.html">
+                    <i class='bx bx-book-alt'></i>
+                    <span class="link_name">Courses</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="courses.html">Courses</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="assessment.html">
+                    <i class='bx bx-list-check'></i>
+                    <span class="link_name">Assessments</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="assessment.html">Assessments</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="progressreport.php">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Progress Report</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="progressreport.php">Progress Report</a></li>
+                </ul>
+            </li>
+           
+        </ul>
+    </div>
+    <section class="home-section" style="background-color: #fff;">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <div class="header-menu">
+                
+         <div class="user-container">
+  <div class="user" onclick="toggleDropdown()">
+    <div class="bg-img" id="userIcon"></div>
+  </div>
+
+  <div class="dropdown" id="userDropdown">
+    <label for="profileInput">
+      <div class="profile-pic" id="dropdownProfile" style="background-image: url('OIP.jpg')" title="Click to change profile picture"></div>
+    </label>
+    <div class="welcome-message" id="welcomeMessage">Welcome,</div>
+    <div id="instructorName" class="instructor-name">Loading name...</div>
+    <input type="file" id="profileInput" accept="image/*" style="display: none" onchange="changeProfilePic(event)">
+    
+    <div class="divider"></div>
+
+    <div class="logout-option" onclick="logout()">
+      <i data-lucide="log-out"></i>
+      <span>Log Out</span>
+    </div>
+  </div>
+</div>
+            </div>
+        </div>
+    
+      <main>
+        <div class="page-header">
+          <h1>Assessment</h1>
+          <small>Home / Assessment</small>
+        </div>
+        
+        <div class="page-content">
+          <div class="records table-responsive">
+            <div class="record-header">
+              <div class="add">
+                <span>Entries</span>
+                <select name="" id="">
+                  <option value="">1-25</option>
+                  <option value="">1-100</option>
+                  <option value="">1-500</option>
+                </select>
+              </div>
+              <div class="browse">
+                <input type="search" placeholder="Search" class="record-search">
+                
+              </div>
+            </div>
+
+            <div id="assessment-info" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; background: #f1f3fa; color: #020143;">
+    <strong>Course Code:</strong> <span id="info-course-code"></span> |
+    <strong>Assessment:</strong> <span id="info-assessment-type"></span> | 
+    <strong>Total Weightage:</strong> <span id="info-total-weightage"></span>
+</div>
+
+            <div>
+              <table id="assessmentTable" width="100%">
+                <thead>
+                  <tr>
+                    <th><span class="las la-sort"></span> Student ID</th>
+                    <th><span class="las la-sort"></span> Student Name</th>
+                    <th><span class="las la-sort"></span> Course Code</th>
+                    <!-- Dynamic Question Headers (Q1, Q2, ...) -->
+                  </tr>
+                  <tr>
+                    <th></th> <!-- Empty for alignment -->
+                    <th></th> <!-- Empty for alignment -->
+                    <!-- Dynamic CLO Headers -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Data rows will be dynamically inserted here -->
+                </tbody>
+              </table>
+              <button id="save-button" class="btn-save">Save Data</button>
+
+            </div>
+          </div>
+        </div>
+
+<!-- Modal Structure -->
+<div id="reusableModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+      <!-- No header text -->
+    </div>
+    <p id="modalMessage">Message content goes here.</p>
+    <button id="modalCloseBtn" class="modal-close-btn">Close</button>
+    <div class="modal-footer"></div>
+    <div id="modalButtons">
+  <button id="modalYesBtn">Yes</button>
+  <button id="modalNoBtn">No</button>
+</div>
+  </div>
+</div>
+
+
+      </main>
+    </section>
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+    </script>
+<script>
+let assessmentData; // Declare outside of the event listener
+
+document.addEventListener("DOMContentLoaded", async function () {
+    // Get the assessment data from localStorage
+    assessmentData = JSON.parse(localStorage.getItem("assessmentData")) || {};
+
+    // ✅ Optional safety check: Remove duplicated CLOs again before rendering
+    assessmentData.questions = assessmentData.questions.map(q => {
+        const seen = new Set();
+        const uniqueCLOs = q.cloWeightages.filter(clo => {
+            if (seen.has(clo.cloId)) return false;
+            seen.add(clo.cloId);
+            return true;
+        });
+
+        return {
+            ...q,
+            cloWeightages: uniqueCLOs
+        };
+    });
+
+    if (!assessmentData || !assessmentData.courseCode || !assessmentData.questions) {
+        console.warn("No assessment data or missing questions in the assessment data.");
+        return;
+    }
+
+    // Extract course code, assessment type, and weightage from localStorage
+    const courseCode = assessmentData.courseCode;  // Get courseCode from localStorage
+    const assessmentType = assessmentData.assessmentType;  // Get assessmentType from localStorage
+    const assessmentWeightage = assessmentData.assessmentWeightage;  // Get assessment weightage from localStorage
+
+    if (courseCode && assessmentType) {
+        // Fetch assessment info from the backend to get the assessment number
+        const baseURL = window.location.origin; // This will get the base URL (e.g., http://localhost)
+        const assessmentInfoURL = `${baseURL}/OBE%20LEARNALIGN%20FYP/Website/getAssessmentInfo.php?course_id=${encodeURIComponent(courseCode)}&assessment_type=${encodeURIComponent(assessmentType)}`;
+
+        fetch(assessmentInfoURL)
+            .then(response => response.json())
+            .then(assessmentData => {
+                document.getElementById("info-course-code").textContent = courseCode;
+                document.getElementById("info-assessment-type").textContent = `${assessmentData.assessmentType} ${assessmentData.assessmentNumber}` || "N/A";
+                document.getElementById("info-total-weightage").textContent = `${assessmentWeightage}%` || "N/A";
+            })
+            .catch(error => {
+                console.error("Error fetching assessment data:", error);
+            });
+    } else {
+        console.error("Error: courseCode or assessmentType not found in localStorage.");
+    }
+
+    console.log("Assessment Questions:", assessmentData.questions);
+    assessmentData.questions.forEach(q => {
+        console.log(`Question #${q.questionNumber} has ID: ${q.questionId}`);
+    });
+
+    // Fetch students and dynamically populate table
+    try {
+        let response = await fetch(`getStudents.php?course_code=${courseCode}`);
+        let students = await response.json();
+        if (!students || students.length === 0) {
+            console.warn("No students found for course:", courseCode);
+            return;
+        }
+
+        let tableHead = document.querySelector("thead");
+        let tableBody = document.querySelector("tbody");
+
+        // Clear existing table content
+        tableHead.innerHTML = "";
+        tableBody.innerHTML = "";
+
+        // Generate Header Row for Student Info + Questions
+        let headerRow1 = document.createElement("tr");
+        headerRow1.innerHTML = `
+            <th>Student ID</th>
+            <th>Student Name</th>
+        `;
+
+        assessmentData.questions.forEach((q, index) => {
+            let th = document.createElement("th");
+            th.colSpan = q.cloWeightages.length * 2;
+            th.style.textAlign = "center";
+            let totalMarks = q.questionMarks || "N/A";
+            let cloDetails = q.cloWeightages.map(clo => `${clo.cloName}: ${clo.weightage}%`).join("<br>");
+            th.innerHTML = `Q${index + 1} <br> (Total Marks: ${totalMarks}) <br> ${cloDetails}`;
+            headerRow1.appendChild(th);
+        });
+
+        tableHead.appendChild(headerRow1);
+
+        // Create Second Header Row for "Obtained Marks" and "Weightage"
+        let headerRow2 = document.createElement("tr");
+        headerRow2.innerHTML = `<th></th><th></th>`;
+        assessmentData.questions.forEach(q => {
+            q.cloWeightages.forEach(() => {
+                let thObtainedMarks = document.createElement("th");
+                thObtainedMarks.textContent = "Obtained Marks";
+                headerRow2.appendChild(thObtainedMarks);
+
+                let thWeightage = document.createElement("th");
+                thWeightage.textContent = "Weightage";
+                headerRow2.appendChild(thWeightage);
+            });
+        });
+
+        tableHead.appendChild(headerRow2);
+
+        // Insert student rows dynamically
+        students.forEach(student => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${student.student_id}</td>
+                <td>${student.student_name}</td>
+            `;
+
+            assessmentData.questions.forEach(q => {
+                q.cloWeightages.forEach(clo => {
+                    let tdObtainedMarks = document.createElement("td");
+                    tdObtainedMarks.classList.add("editable-cell");
+                    tdObtainedMarks.contentEditable = "true";
+                    tdObtainedMarks.setAttribute("data-question-id", q.questionId || "MISSING");
+                    tdObtainedMarks.setAttribute("data-total-marks", q.questionMarks);
+                    tdObtainedMarks.setAttribute("data-clo-weightage", clo.weightage);
+                    tdObtainedMarks.addEventListener("input", calculateWeightage);
+                    row.appendChild(tdObtainedMarks);
+
+                    let tdWeightage = document.createElement("td");
+                    tdWeightage.textContent = "0%";
+                    row.appendChild(tdWeightage);
+                });
+            });
+
+            tableBody.appendChild(row);
+            document.querySelectorAll(".editable-cell").forEach(cell => {
+                console.log("Cell data-question-id:", cell.getAttribute("data-question-id"));
+            });
+            let isMouseDown = false;
+let obtainedMarksCells = document.querySelectorAll(".editable-cell");
+
+obtainedMarksCells.forEach(cell => {
+    // Select cell on mouse down
+    cell.addEventListener("mousedown", function (e) {
+        isMouseDown = true;
+
+        // Use Ctrl key to allow multi-select
+        if (!e.ctrlKey) {
+            obtainedMarksCells.forEach(c => c.classList.remove("selected"));
+        }
+
+        cell.classList.toggle("selected");
+    });
+
+    // Allow dragging to select multiple cells (without Ctrl)
+    cell.addEventListener("mouseenter", function (e) {
+        if (isMouseDown && !e.ctrlKey) {
+            cell.classList.add("selected");
+        }
+    });
+});
+
+document.addEventListener("mouseup", function () {
+    isMouseDown = false;
+});
+
+        });
+
+    } catch (error) {
+        console.error("Error fetching student data:", error);
+    }
+});
+
+
+
+          function calculateWeightage(event) {
+    let obtainedMarksCell = event.target;
+    let obtainedMarks = parseFloat(obtainedMarksCell.textContent.trim());
+
+    let totalMarks = parseFloat(obtainedMarksCell.getAttribute("data-total-marks"));
+    let cloWeightage = parseFloat(obtainedMarksCell.getAttribute("data-clo-weightage"));
+
+    // Prevent invalid input
+    if (isNaN(obtainedMarks) || obtainedMarks < 0) {
+        obtainedMarksCell.textContent = "";
+        return;
+    }
+
+    // Prevent exceeding total marks
+    if (obtainedMarks > totalMarks) {
+        alert(`⚠️ Obtained marks cannot exceed ${totalMarks}`);
+        obtainedMarksCell.textContent = totalMarks;
+        obtainedMarks = totalMarks;
+    }
+
+    // Calculate weightage and update the next cell
+    let calculatedWeightage = (obtainedMarks / totalMarks) * cloWeightage;
+    let weightageCell = obtainedMarksCell.nextElementSibling;
+    weightageCell.textContent = calculatedWeightage.toFixed(2) + "%";
+}
+
+document.addEventListener("paste", function (event) {
+    let selectedCells = Array.from(document.querySelectorAll(".editable-cell.selected"));
+    if (selectedCells.length === 0) return;
+
+    event.preventDefault();
+
+    let clipboardData = (event.clipboardData || window.clipboardData).getData("text");
+    let values = clipboardData.trim().split(/\r?\n/); // Newline-separated values
+
+    // Flatten clipboard content in case values are tab-separated too (e.g. from Excel)
+    values = values.flatMap(line => line.split("\t"));
+
+    for (let i = 0; i < selectedCells.length && i < values.length; i++) {
+        selectedCells[i].textContent = values[i];
+        calculateWeightage({ target: selectedCells[i] });
+    }
+
+    // Optional: Deselect after pasting
+    selectedCells.forEach(cell => cell.classList.remove("selected"));
+});
+
+        // Attach save button listener once all rows are added
+        document.getElementById("save-button").addEventListener("click", saveData);
+
+
+
+
+
+function saveData() {
+    const table = document.getElementById("assessmentTable");
+    const rows = table.querySelectorAll("tbody tr");
+
+    const dataToSave = [];
+
+    rows.forEach(row => {
+        const studentId = row.querySelector("td:first-child").textContent.trim();
+        const editableCells = row.querySelectorAll(".editable-cell");
+
+        editableCells.forEach(cell => {
+            const obtainedMarks = parseFloat(cell.textContent.trim());
+            const questionId = cell.getAttribute("data-question-id");
+
+            if (!isNaN(obtainedMarks)) {
+                dataToSave.push({
+                    student_id: parseInt(studentId),
+                    question_id: questionId,
+                    obtained_marks: obtainedMarks
+                });
+            }
+        });
+    });
+
+    const courseId = localStorage.getItem("course_id");
+
+    fetch(`saveAssessmentInfoForStudents.php?course_id=${courseId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataToSave)
+    })
+    .then(res => res.json())
+    .then(response => {
+        if (response.success) {
+            showModal("✅ Data saved successfully");
+        } else {
+            console.error("Save failed:", response.error);
+            showModal("❌ Error saving data.");
+        }
+    })
+    .catch(error => {
+        console.error("Save error:", error);
+        alert("❌ Failed to save data.");
+    });
+    
+}
+
+function toggleDropdown() {
+  const dropdown = document.getElementById("userDropdown");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+
+  fetch('get_instructors_name.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.name) {
+        document.getElementById("instructorName").textContent = data.name;
+      } else {
+        document.getElementById("instructorName").textContent = "Unknown Instructor";
+      }
+    });
+
+  lucide.createIcons();
+}
+
+function logout() {
+  alert("Logged out!");
+  window.location.href = "login.html";
+}
+
+function changeProfilePic(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imgData = e.target.result;
+
+      // Set the image in both UI locations
+      document.getElementById("userIcon").style.backgroundImage = `url('${imgData}')`;
+      document.getElementById("dropdownProfile").style.backgroundImage = `url('${imgData}')`;
+
+      // Save the image to localStorage
+      localStorage.setItem("userProfilePic", imgData);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+document.addEventListener("click", function (event) {
+  const user = document.querySelector(".user");
+  const dropdown = document.getElementById("userDropdown");
+  if (!user.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+});
+
+window.addEventListener("DOMContentLoaded", function () {
+  const savedPic = localStorage.getItem("userProfilePic");
+  if (savedPic) {
+    document.getElementById("userIcon").style.backgroundImage = `url('${savedPic}')`;
+    document.getElementById("dropdownProfile").style.backgroundImage = `url('${savedPic}')`;
+  }
+});
+
+// Function to open and customize the modal
+function showModal(message, type = "info") {
+    return new Promise((resolve) => {
+        // Set the message dynamically
+        document.getElementById("modalMessage").innerText = message;
+
+        // Show modal
+        document.querySelector('.modal').classList.add('show');
+
+        const yesBtn = document.getElementById("modalYesBtn");
+        const noBtn = document.getElementById("modalNoBtn");
+        const closeBtn = document.getElementById("modalCloseBtn");
+        const headerCloseIcon = document.querySelector(".close-btn");
+
+        if (type === "confirm") {
+            // Show Yes/No buttons
+            yesBtn.style.display = "inline-block";
+            noBtn.style.display = "inline-block";
+
+            // Hide close button/icon
+            closeBtn.style.display = "none";
+            headerCloseIcon.style.display = "none";
+
+            yesBtn.onclick = function () {
+                closeModal();
+                resolve(true);
+            };
+
+            noBtn.onclick = function () {
+                closeModal();
+                resolve(false);
+            };
+        } else {
+            // Hide Yes/No buttons
+            yesBtn.style.display = "none";
+            noBtn.style.display = "none";
+
+            // Show close button/icon
+            closeBtn.style.display = "inline-block";
+            headerCloseIcon.style.display = "inline-block";
+
+            // Auto-close after 2 seconds
+            setTimeout(() => {
+                closeModal();
+                resolve();
+            }, 2000);
+        }
+
+        // Close modal button
+        closeBtn.onclick = function () {
+            closeModal();
+            resolve(false); // Treat as cancel
+        };
+
+        // Close icon in header
+        headerCloseIcon.onclick = function () {
+            closeModal();
+            resolve(false); // Treat as cancel
+        };
+
+        // Clicking outside modal closes it
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("reusableModal")) {
+                closeModal();
+                resolve(false);
+            }
+        };
+
+        function closeModal() {
+            document.querySelector('.modal').classList.remove('show');
+
+            // Reset all buttons to visible for next time
+            yesBtn.style.display = "inline-block";
+            noBtn.style.display = "inline-block";
+            closeBtn.style.display = "inline-block";
+            headerCloseIcon.style.display = "inline-block";
+        }
+    });
+}
+
+
+</script>
+<style>
+  /* Allow table to adjust column width automatically */
+  table {
+    table-layout: auto; /* Auto-adjust column widths */
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    overflow-x: auto;
+  }
+
+  th, td {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+    min-width: 100px; /* Ensures columns don’t shrink too much */
+    max-width: 200px; /* Prevents columns from stretching too wide */
+    word-wrap: break-word; /* Wrap long words properly */
+    white-space: normal; /* Allow text wrapping */
+    overflow: hidden;
+  }
+
+  /* Styling for headers */
+  th {
+    background-color: #020143;
+    color: #fff !important;
+    padding: 10px 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  /* Editable cell styling */
+  .editable-cell {
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  /* Highlight selected editable cells */
+  .editable-cell.selected {
+    background-color: #cde7ff;
+    border: 2px solid #007bff;
+  }
+
+  /* Focused editable cell */
+  .editable-cell:focus {
+    outline: none;
+    background-color: #e7f7ff;
+    border-color: #007bff;
+  }
+
+  /* Ensure headers in multi-row headers stay readable */
+  thead tr:first-child th,
+  thead tr:nth-child(2) th {
+    font-size: 12px;
+  }
+
+  /* Add hover effect for rows */
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  /* Empty cell styling */
+  td:empty {
+    background-color: #f7f7f7;
+  }
+
+  /* Ensure text is not hidden inside headers with colspan */
+  th[colspan] {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  /* Make table horizontally scrollable if necessary */
+  .table-container {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
+    
+    th, td {
+      font-size: 10px;
+      padding: 6px;
+    }
+  }
+
+</style>
+  </body>
+</html>

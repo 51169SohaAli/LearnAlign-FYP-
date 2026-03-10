@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Assessment</title>
+    <link rel="stylesheet" href="testcss.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <div class="sidebar close">
+        <div class="logo-details">
+            <img src="logo.png" alt="logo">
+            <span class="logo_name">LearnAlign</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="InstructorDashboard.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="InstructorDashboard.html">Dashboard</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="outcomes.html">
+                    <i class='bx bx-bullseye'></i>
+                    <span class="link_name">Outcomes</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="outcomes.html">Outcomes</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="courses.html">
+                    <i class='bx bx-book-alt'></i>
+                    <span class="link_name">Courses</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="courses.html">Courses</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="assessment.html">
+                    <i class='bx bx-list-check'></i>
+                    <span class="link_name">Assessments</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="assessment.html">Assessments</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="progressreport.php">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Progress Report</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="progressreport.php">Progress Report</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="feedback.html">
+                    <i class='bx bx-comment'></i>
+                    <span class="link_name">Feedback</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="feedback.html">Feedback</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section" style="background-color: #fff;">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <div class="header-menu">
+                <div class="user-container">
+  <div class="user" onclick="toggleDropdown()">
+    <div class="bg-img" id="userIcon" style="background-image: url('OIP.jpg')"></div>
+    
+  </div>
+
+  <div class="dropdown" id="userDropdown">
+    <label for="profileInput">
+      <div class="profile-pic" id="dropdownProfile" style="background-image: url('OIP.jpg')" title="Click to change profile picture"></div>
+    </label>
+    <input type="file" id="profileInput" accept="image/*" style="display: none" onchange="changeProfilePic(event)">
+    
+    <div class="divider"></div>
+
+    <div class="logout-option" onclick="logout()">
+      <i data-lucide="log-out"></i>
+      <span>Log Out</span>
+    </div>
+  </div>
+</div>
+            </div>
+        </div>
+
+        <main>
+            <div class="page-header">
+                <h1>Add Assessment</h1>
+                <small>Home / Courses / Add Assessment</small>
+            </div>
+
+        <div class="page-content">
+    <div class="main-form-container">
+        <div class="form-header">
+        </div>
+        <form class="form-container" onsubmit="return false;">
+            <div class="input-group">
+               <!-- Step 1: Assessment Information -->
+<div class="step" id="step1">
+    <div id="step1-header">Step 1: Assessment Information</div>
+    
+    <label for="assessmenttype">Assessment Type:</label>
+    <select id="assessmenttype">
+        <option value="" disabled selected>Choose Assessment Type</option>
+        <option>Midterm</option>
+        <option>FinalTerm</option>
+        <option>Assignment</option>
+        <option>Quiz</option>
+        <option>Project</option>
+        <option>Lab</option>
+    </select>
+
+    <label for="course_id">Course ID:</label>
+    <select id="course_id">
+        <option value="" disabled selected>Loading...</option>
+    </select>
+    <input type="hidden" id="courseId" value="101">
+
+    <label for="totalWeightage">Weightage for Assessment:</label>
+    <input type="number" id="totalWeightage" placeholder="Enter total weightage" required>
+
+    <!-- Hidden input for storing assessment ID -->
+    <input type="hidden" id="assessmentId" value="">
+
+    <button type="button" onclick="validateStep1()">Next</button>
+</div>
+</div>
+
+<!-- Step 3: Question Mapping -->
+<div class="step" id="step3" style="display: none;">
+    
+        
+        <!-- Display Assessment Info at the Top -->
+      <div id="assessmentInfo" class="assessment-info-container">
+            <div class="assessment-info">
+                <p><strong>Assessment Type:</strong> <span id="assessmentType"></span></p>
+                <p><strong>Course:</strong> <span id="courseName"></span> (<span id="courseID"></span>)</p>
+            </div>
+        </div>
+
+
+        <div class="step3-container">
+        <!-- Left Section: Question Input -->
+        <div class="left-section">
+            <h3>Step 2: Question Mapping</h3>
+            <label for="numQuestions">Number of Questions:</label>
+            <input type="number" id="numQuestions" placeholder="Enter number of questions" min="1" onchange="generateTable()">
+            <div id="questionsTableContainer"></div>
+            <div class="buttons-container">
+            <button class="btn" onclick="prevStep(1)">Back</button>
+            <button class="btn" type="button" id="saveAssessment">Save</button>
+            <button class="btn" type="button" id="addNewAssessment">Add New Assessment</button>
+        </div>
+        </div>
+
+        <div class="right-section">
+            <div class="chart-box">
+                <!-- Container for the sunburst chart -->
+                <div id="chart" style="width: 500px; height: 500px;"></div> <!-- Set width and height to fixed, larger values -->
+                <div class="chart-label">CLO Weightage Assignment</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Modal Structure -->
+<div id="reusableModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+      <!-- No header text -->
+    </div>
+    <p id="modalMessage">Message content goes here.</p>
+    <button id="modalCloseBtn" class="modal-close-btn">Close</button>
+    <div class="modal-footer"></div>
+  </div>
+</div>
+
+
+
+
+        </main>
+    </section>
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+    </script>
+   <script>
+     // Store assigned weightages per question
+       let questionCount = 1;
+
+
+    // Clear previous CLO weightage inputs
+    cloWeightsContainer.innerHTML = '';
+
+    // Dynamically add CLO weightage fields based on the CLOs in the table
+    if (cloTable.rows.length > 0) {
+        Array.from(cloTable.rows).forEach((row, index) => {
+            const cloName = row.cells[0].innerText; // CLO name
+            cloWeightsContainer.innerHTML += `
+                <div>
+                    <label for="cloWeight${index}">Weightage for ${cloName}:</label>
+                   <input type="number" id="cloWeight${index}" placeholder="Enter weightage" min="0" oninput="updateAssignedWeight('${cloId}', this.value)">
+
+                </div>
+            `;
+        });
+    } else {
+        cloWeightsContainer.innerHTML = '<p>No CLOs mapped for this course.</p>';
+    }
+   </script> 
+  <script type="text/javascript" src="script.js"></script> 
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    let pieChartInstance = null; // Track the instance of the chart
+    
+   document.addEventListener("DOMContentLoaded", function () {
+    fetchCourses();
+    document.getElementById("course_id").addEventListener("change", function () {
+        fetchCLOs(this.value);
+    });
+    
+ /*   document.addEventListener("DOMContentLoaded", function () {
+    const assessmentId = document.getElementById("assessmentId")?.value;
+    const courseId = document.getElementById("courseId")?.value;
+
+    if (assessmentId && courseId) {
+        updateProgressBars(); // Call only when IDs exist
+    } else {
+        console.warn("⚠️ Assessment ID or Course ID is missing. Skipping progress bar update.");
+    }
+}); */
+
+    document.getElementById("course_id").addEventListener("change", function() {
+    // Update the hidden courseId input when the user selects a course
+    const selectedCourseId = this.value;
+    document.getElementById("courseId").value = selectedCourseId;
+});
+
+
+
+document.getElementById("addNewAssessment").addEventListener("click", function () {
+    console.log("➡️ Add New Assessment button clicked!");
+
+    // Show confirmation dialog
+    if () {
+        console.log("User confirmed to add new assessment. Resetting form and navigating to Step 1...");
+
+        // Reset all input fields in the form
+        document.querySelectorAll("input, select").forEach(input => {
+            if (input.type === "checkbox" || input.type === "radio") {
+                input.checked = false;
+            } else {
+                input.value = "";
+            }
+        });
+
+        // Reset dynamically generated content (like tables)
+        document.getElementById("questionsTableContainer").innerHTML = "";
+
+        // Reset CLO weightage tracking (but do NOT clear assignedWeights)
+        cloWeights = {};  
+
+        // Ensure the step is updated
+        showStep(1); // Make sure the function is called here after resetting
+
+    } else {
+        console.log("User canceled. Staying on current step.");
+    }
+});
+
+    // Attach Next Button Event
+    document.getElementById("nextToStep2").addEventListener("click", function () {
+        validateStep1();
+    });
+});
+
+
+let cloWeights = {};
+let assignedWeights = {}; 
+
+
+function fetchCourses() {
+    fetch("fetchcourses.php")
+        .then(response => response.json())
+        .then(data => {
+            const courseSelect = document.getElementById("course_id");
+            courseSelect.innerHTML = '<option value="">Select a Course</option>';
+             data.forEach(course => {
+    courseSelect.innerHTML += `<option value="${course.course_id}">${course.course_id}:${course.course_name}</option>`;
+});
+        })
+        .catch(error => console.error("Error fetching courses:", error));
+}
+
+let cloDataList = {}; // Global object to store CLOs
+
+function fetchCLOs(courseId) {
+    if (!courseId) return;
+
+    fetch(`getclos.php?course_id=${courseId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched CLOs:", data); // Add logging here
+            if (data.success && Array.isArray(data.clos)) {
+                cloDataList = {}; // Reset CLO storage
+                data.clos.forEach(clo => {
+                    // Use clo.clo_name (now available) instead of clo.clo
+                    cloDataList[clo.clo_id] = {
+                        cloName: clo.clo_name,  // Now using clo_name
+                        description: clo.description,
+                        weightage: clo.weightage
+                    };
+                });
+                console.log("Populated CLO data list:", cloDataList); // Check this
+                generateTable();  // Assuming this generates the table using cloDataList
+            } else {
+                console.error("Error: Unable to fetch CLOs", data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching CLOs:", error));
+}
+
+
+
+function generateCLOInputs(clos) {
+    const cloTableBody = document.getElementById("cloTableBody");
+    cloTableBody.innerHTML = "";
+    cloWeights = {}; // Reset stored weights
+
+    if (clos.length === 0) {
+        document.getElementById("cloTableContainer").style.display = "none";
+        return;
+    }
+
+    document.getElementById("cloTableContainer").style.display = "block";
+
+    clos.forEach((cloData) => {
+        const cloName = cloData.clo.replace(/\W+/g, "_"); // Ensure safe ID
+        const weightage = cloData.weightage || 0; // Default to 0 if empty
+        cloWeights[cloName] = weightage; // Store weightage entered
+
+        const rowHTML = `
+            <tr data-clo-id="${cloData.clo}">
+                <td>${cloData.clo}</td>
+                <td>${cloData.description}</td>
+                <td>
+                    <input type="number" id="${cloName}" min="0" max="100" value="${weightage}"
+                        oninput="updateCLOWeight('${cloName}', this.value)">
+                </td>
+            </tr>
+        `;
+
+        cloTableBody.insertAdjacentHTML("beforeend", rowHTML);
+    });
+}
+ 
+
+function validateStep1() {
+    let assessmentType = document.getElementById("assessmenttype").value;
+    let courseId = document.getElementById("course_id").value;
+    let weightage = document.getElementById("totalWeightage").value;
+
+    console.log("Assessment Type:", assessmentType);
+    console.log("Course ID:", courseId);
+    console.log("Weightage:", weightage);
+
+    if (assessmentType === "Choose Assessment Type" || courseId === "" || weightage === "") {
+        showModal("⚠️ Please select an assessment type, course, and weightage before proceeding.");
+        return;
+    }
+
+    // Call the function to save assessment info and pass necessary data to backend
+    saveAssessmentInfo(assessmentType, courseId, weightage);
+
+    // Save to localStorage (after the assessment is saved on the server)
+    localStorage.setItem("assessmenttype", assessmentType);
+    localStorage.setItem("course_id", courseId);
+
+    // Update assessment details dynamically in the UI
+    document.getElementById("assessmentType").textContent = assessmentType;
+    document.getElementById("courseID").textContent = courseId;
+
+    // Fetch course name and update display (if needed)
+    fetchCourseName(courseId);
+    
+    // Move to Step 3 only after the assessment ID is saved
+    // The step transition should happen within saveAssessmentInfo after the assessment ID is returned
+}
+
+
+function saveAssessmentInfo(assessmentType, courseId, weightage) {
+    fetch("save_assessment.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            assessmentType: assessmentType,
+            courseId: courseId,
+            weightage: weightage
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("PHP Response:", data); // Log the response to debug
+
+        if (data.success) {
+            console.log("✅ Assessment information saved successfully.");
+
+            // Store the received assessment ID
+            let assessmentId = data.assessment_id; 
+
+            // Check if assessmentId is returned
+            if (assessmentId) {
+                // Set hidden input fields (make sure these exist in your HTML)
+                document.getElementById("assessmentId").value = assessmentId;
+                document.getElementById("courseId").value = courseId;
+
+                console.log("Assessment ID:", assessmentId);
+                console.log("Course ID:", courseId);
+
+                // Save to localStorage after saving to the server
+                let assessmentData = {
+                    assessmentId: assessmentId, // Now including the ID
+                    assessmentType: assessmentType,
+                    courseCode: courseId,
+                    assessmentWeightage: weightage,
+                    questions: [] // You will populate this later
+                };
+                localStorage.setItem("assessmentData", JSON.stringify(assessmentData));
+
+                // ✅ Ensure step transition happens AFTER IDs are stored
+                showStep(3);
+            } else {
+                showModal("❌ Error: Assessment ID not returned.");
+            }
+        } else {
+            showModal("❌ Error saving assessment information: " + (data.error || "Unknown error"));
+        }
+    })
+    .catch(error => {
+        console.error("Error saving assessment info:", error);
+        showModal("❌ An error occurred while saving the assessment information.");
+    });
+}
+
+
+function validateStep2() {
+    if (skip) {
+        let confirmSkip = confirm("Are you sure you want to skip this step? Make sure CLO weightages are already defined.");
+        if (confirmSkip) {
+            console.log("⏭️ Step 2 skipped. Proceeding to Step 3.");
+            showStep(3);
+        }
+        return;
+    }
+
+    let totalWeight = 0;
+
+    document.querySelectorAll("#cloTableBody input").forEach(input => {
+        let cloId = input.id;
+        let weightage = parseFloat(input.value) || 0;
+        cloWeights[cloId] = weightage;
+        totalWeight += weightage;
+    });
+
+    if (totalWeight !== 100) {
+        showModal(`⚠️ You still need to assign **${100 - totalWeight}%** to reach 100%.`);
+        return;
+    }
+
+    console.log("✅ CLO coverage is 100%. Proceeding to Step 3.");
+    console.log("CLOs being passed to Step 3:", cloWeights);
+
+    showStep(3);
+}
+
+
+// Function for Step 2: Update the overall progress bar
+function updateProgressBar() {
+    console.log("Updating progress bar...");
+
+    let total = 0;
+    let cloInputs = document.querySelectorAll("#cloTableBody input[type='number']");
+    console.log(`Found CLO weightage inputs for Question:`, cloInputs);
+
+    cloInputs.forEach(input => {
+        let value = parseFloat(input.value) || 0;
+        total += value;
+    });
+
+    let progressBar = document.getElementById("cloProgressBar");
+    let progressText = document.getElementById("cloProgressText");
+
+    progressBar.style.width = Math.min(total, 100) + "%"; // Visually cap at 100%
+    progressText.innerText = total + "% Covered"; // Show actual total
+
+    if (total > 100) {
+        progressBar.style.backgroundColor = "red"; // Indicate overflow
+    } else if (total === 100) {
+        progressBar.style.backgroundColor = "green";
+    } else {
+        progressBar.style.backgroundColor = "#f39c12"; // Orange when incomplete
+    }
+}
+
+/*
+let isProgressBarsCreated = false;
+let hasUserSelectedCourse = false;
+let lastSelectedCourseId = null;
+let hasProgressBarsInitialized = false; // Flag to track if progress bars exist
+
+// Function to create progress bars (Initial Setup)
+function createProgressBars() {
+    if (!hasUserSelectedCourse) {
+        console.log("⚠️ User has not selected a course. Skipping progress bar creation.");
+        return;
+    }
+
+    const courseId = document.getElementById("course_id")?.value.trim();
+    if (!courseId || courseId === "101") {
+        console.log("❌ Course ID is missing or default. Cannot create progress bars.");
+        return;
+    }
+
+    if (isProgressBarsCreated) {
+        console.log("✅ Progress bars already created. Skipping recreation...");
+        return;
+    }
+
+    console.log("🔄 Fetching and creating initial Progress Bars...");
+
+    const progressBarsContainer = document.getElementById("progressBarsContainer");
+    if (!progressBarsContainer) {
+        console.error("❌ Error: Element with ID 'progressBarsContainer' not found.");
+        return;
+    }
+
+    const url = `get_assigned_clo_weight.php?courseId=${encodeURIComponent(courseId)}`;
+    console.log("🌐 Fetching CLOs from URL:", url);
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                console.error("❌ Error fetching CLO progress data:", data.error);
+                return;
+            }
+
+            console.log("🔍 Data fetched:", data.clos);
+
+            const uniqueCLOs = Array.from(new Set(data.clos.map(clo => clo.clo_id)))
+                .map(id => data.clos.find(clo => clo.clo_id === id));
+
+            console.log("🔍 Unique CLOs:", uniqueCLOs);
+
+            progressBarsContainer.innerHTML = ""; // Clear previous progress bars
+            hasProgressBarsInitialized = true; // Mark that bars exist
+
+            uniqueCLOs.forEach(clo => {
+                let assignedWeight = parseFloat(clo.assignedWeight) || 0;
+                let totalWeightage = parseFloat(clo.totalWeightage) || 1;
+                let percentage = (assignedWeight / totalWeightage) * 100;
+
+                let progressBarItem = document.createElement("div");
+                progressBarItem.classList.add("progress-bar-item");
+
+                // Create the progress bar and fill
+                let progressBar = document.createElement("div");
+                progressBar.classList.add("progress-bar");
+
+                let progressFill = document.createElement("div");
+                progressFill.classList.add("progress-fill");
+                progressFill.style.width = `${percentage}%`;
+                progressFill.textContent = `${percentage.toFixed(2)}%`;
+
+                // Add label to identify each CLO
+                let label = document.createElement("label");
+                label.textContent = `${clo.name} (${percentage.toFixed(2)}%)`;
+
+                // Append the progress bar and label
+                progressBar.appendChild(progressFill);
+                progressBarItem.appendChild(label);
+                progressBarItem.appendChild(progressBar);
+                progressBarsContainer.appendChild(progressBarItem);
+
+                // Debugging logs
+                console.log(`✅ Created progress bar for ${clo.name} - ${percentage.toFixed(2)}%`);
+            });
+
+            console.log("✅ Progress bars created successfully.");
+            isProgressBarsCreated = true;
+        })
+        .catch(error => {
+            console.error("❌ Error fetching CLO progress:", error);
+        });
+}
+*/
+// Function to update existing progress bars dynamically
+/*function updateProgressBars(updatedCLOs) {
+    if (!hasProgressBarsInitialized) {
+        console.log("⚠️ No existing progress bars. Skipping update...");
+        return;
+    }
+
+    console.log("🔄 Updating Progress Bars...", updatedCLOs);
+
+    const progressBarsContainer = document.getElementById("progressBarsContainer");
+    if (!progressBarsContainer) {
+        console.error("❌ Error: Element with ID 'progressBarsContainer' not found.");
+        return;
+    }
+
+    if (!updatedCLOs || updatedCLOs.length === 0) {
+        console.error("❌ Error: No CLO data available for updating.", updatedCLOs);
+        return;
+    }
+
+    updatedCLOs.forEach(clo => {
+        let assignedWeight = parseFloat(clo.assignedWeight) || 0;
+        let totalWeightage = parseFloat(clo.totalWeightage) || 1;
+        let percentage = (assignedWeight / totalWeightage) * 100;
+
+        // Find the corresponding progress bar by CLO name (in this case, by label)
+        let progressBarItem = [...progressBarsContainer.children].find(item =>
+            item.querySelector("label")?.textContent.includes(clo.name)
+        );
+
+        if (progressBarItem) {
+            let progressFill = progressBarItem.querySelector(".progress-fill");
+            let label = progressBarItem.querySelector("label");
+
+            if (progressFill && label) {
+                progressFill.style.width = `${percentage}%`;
+                label.textContent = `${clo.name} (${percentage.toFixed(2)}%)`;
+
+                console.log(`✅ Updated ${clo.name} to ${percentage}%`);
+            }
+        }
+    });
+
+    console.log("✅ Progress bars update complete.");
+}
+*/
+
+// Event listener for course selection
+document.getElementById("course_id")?.addEventListener("change", (event) => {
+    const selectedValue = event.target.value.trim();
+
+    if (selectedValue === lastSelectedCourseId) {
+        console.log("🔁 Same course reselected. Skipping...");
+        return; // Prevent duplicate calls
+    }
+
+    lastSelectedCourseId = selectedValue; // Store the last selected course
+
+    if (selectedValue && selectedValue !== "101") {
+        hasUserSelectedCourse = true;
+        isProgressBarsCreated = false; // Reset flag
+        document.getElementById("progressBarsContainer").innerHTML = ''; // Clear previous progress bars
+        hasProgressBarsInitialized = false;
+        createProgressBars();
+    } else {
+        hasUserSelectedCourse = false;
+    }
+});
+
+
+function handleCLOSelection(selectElement) {
+    let selectedCLO = selectElement.value; // The selected CLO ID
+    let questionId = selectElement.getAttribute("data-question"); // The question ID
+    let cloDetailsContainer = document.getElementById(`cloDetails_${questionId}`); // The container for displaying CLO details
+
+    if (!selectedCLO) {
+        cloDetailsContainer.innerHTML = ""; // Clear details if no CLO is selected
+        return;
+    }
+
+    // Fetch CLO details via AJAX
+    const url = `handleCLOSelection.php?cloId=${selectedCLO}`;
+
+    fetch(url)
+        .then(response => response.json())  // Get response as JSON
+        .then(data => {
+            if (!data.success) {
+                alert(data.error); // Show error if CLO not found
+                return;
+            }
+
+            // Extract data from the response
+            const { cloName, description, weightage, assignedWeightage, remainingWeightage } = data;
+
+            // Generate the HTML content for the CLO details
+let detailsHTML = `
+    <table class="cloInfoTable">
+        <tr>
+            <td class="label-cell"><strong>CLO Name:</strong></td>
+            <td class="value-cell">${cloName}</td>
+        </tr>
+        <tr>
+            <td class="label-cell"><strong>Description:</strong></td>
+            <td class="value-cell">${description}</td>
+        </tr>
+        <tr>
+            <td class="label-cell"><strong>Weightage:</strong></td>
+            <td class="value-cell">
+                <input type="number" 
+                       id="weight_${questionId}_${selectedCLO}" 
+                       min="0" 
+                       max="${remainingWeightage}" 
+                       value="0" 
+                       placeholder="Enter weightage" 
+                       oninput="updateRemainingCLOWeightage('${questionId}', '${selectedCLO}', ${remainingWeightage}, ${weightage})">
+            </td>
+        </tr>
+        <tr>
+            <td class="label-cell"><strong>Remaining:</strong></td>  <!-- Remaining header -->
+            <td class="value-cell">
+        <span id="remainingWeight_${questionId}_${selectedCLO}" class="remaining-weight">
+    ${remainingWeightage}/${weightage}
+</span>
+ <!-- Remaining value under the Weightage input -->
+            </td>
+        </tr>
+    </table>
+    <button onclick="saveCLOWeight('${questionId}', '${selectedCLO}', '${description}')">Save</button>
+`;
+
+            // Update the CLO details container with the generated HTML
+            cloDetailsContainer.innerHTML = detailsHTML;
+        })
+        .catch(error => {
+            console.error("Error fetching CLO details:", error);
+            showModal("Error fetching CLO details.");
+        });
+}
+
+function updateRemainingCLOWeightage(questionId, selectedCLO, remainingWeightage, totalWeightage) {
+    // Ensure courseId is available (using the element with ID 'courseId')
+    const courseId = document.getElementById("courseId")?.value || '';  // Get courseId from the element with ID 'courseId'
+
+    console.log("courseId: ", courseId); // Log the courseId to check if it is correctly retrieved
+    console.log("selectedCLO: ", selectedCLO);
+
+    const weightInput = document.getElementById(`weight_${questionId}_${selectedCLO}`);
+    const enteredWeightage = parseFloat(weightInput.value) || 0;
+
+    // Ensure entered weight doesn't exceed the remaining weightage
+    if (enteredWeightage > remainingWeightage) {
+        showModal("Entered weightage exceeds the remaining weightage.");
+        weightInput.value = remainingWeightage; // Limit the input to remaining weightage
+    }
+
+    // Calculate remaining weightage after entered weightage
+    const updatedRemainingWeightage = remainingWeightage - enteredWeightage;
+
+    // Update remaining weightage display (initial client-side display)
+    const remainingDisplay = document.getElementById(`remainingWeight_${questionId}_${selectedCLO}`);
+    remainingDisplay.textContent = `${updatedRemainingWeightage}/${totalWeightage}`;
+
+    // Debugging: Log the values being sent to the backend
+    console.log("Entered weightage: ", enteredWeightage);
+    console.log("Updated Remaining Weightage: ", updatedRemainingWeightage);
+
+    // Fetch the current assigned weightage from the database (example PHP request)
+    fetch(`get_remaining_weightage.php?courseId=${courseId}&cloId=${selectedCLO}`)
+        .then(response => response.json())
+        .then(data => {
+            // Check if the response is successful
+            if (data.success) {
+                // Fetch current assigned weightage from the backend
+                const currentAssignedWeightage = parseFloat(data.assignedWeightage) || 0;
+
+                // Debugging: Check if currentAssignedWeightage is correct
+                console.log("Backend Assigned Weightage: ", currentAssignedWeightage);
+
+                // Calculate new assigned weightage
+                let newAssignedWeightage = currentAssignedWeightage + enteredWeightage;
+
+                // Debugging: Log the raw newAssignedWeightage
+                console.log("Raw New Assigned Weightage (before rounding): ", newAssignedWeightage);
+
+                // Ensure proper rounding to 2 decimal places (use toFixed or Math.round)
+                newAssignedWeightage = Math.round(newAssignedWeightage * 100) / 100; // Round to 2 decimals
+
+                // Debugging: Log the current assigned and new weightage
+                console.log("Current Assigned Weightage: ", currentAssignedWeightage);
+                console.log("New Assigned Weightage (after rounding): ", newAssignedWeightage);
+
+                // Ensure the new weightage doesn't exceed the total weightage
+                if (newAssignedWeightage > totalWeightage) {
+                    showModal("Assigned weightage exceeds the total weightage.");
+                    return;
+                }
+
+                // Calculate the new percentage for the progress bar
+                const percentage = (newAssignedWeightage / totalWeightage) * 100;
+                console.log(`Calculated Percentage: ${percentage}%`);
+
+               
+            } else {
+                // Log any error from the backend
+                console.error(data.error || 'Error: Unable to fetch current assigned weightage');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data from PHP:', error);
+            alert("Error fetching data from PHP.");
+        });
+}
+/*
+
+function handleInputChange(event, clo_id) {
+    // Get the current value of the input (assigned weight)
+    let inputValue = parseFloat(event.target.value) || 0;
+
+    // Find the CLO object that corresponds to the clo_id
+    let clo = updatedCLOs.find(clo => clo.clo_id === clo_id);
+
+    if (clo) {
+        // Ensure input value is not negative (if that's not allowed)
+        if (inputValue < 0) {
+            console.warn(`Negative weightage is not allowed for CLO ${clo_id}`);
+            event.target.value = 0; // Reset input to 0
+            inputValue = 0;
+        }
+
+        // Ensure the entered weightage does not exceed the remaining weightage
+        if (inputValue <= clo.remainingWeightage) {
+            // Set the assigned weightage directly (no accumulation)
+            clo.assignedWeight = inputValue; // Set to the new input value
+        } else {
+            // Handle the case where the input value exceeds the remaining weightage
+            console.warn(`Entered weightage exceeds remaining weightage for CLO ${clo_id}`);
+            event.target.value = clo.remainingWeightage; // Reset to max remaining weightage
+            clo.assignedWeight = clo.remainingWeightage; // Set to the remaining weightage
+        }
+
+        // Update the progress bars again to reflect the new value
+        updateProgressBars(updatedCLOs);
+    }
+}
+
+function updateProgressBars(updatedCLOs) {
+    const progressBarsContainer = document.getElementById("progressBarsContainer");
+    if (!progressBarsContainer) {
+        console.error("❌ Error: Element with ID 'progressBarsContainer' not found.");
+        return;
+    }
+
+    updatedCLOs.forEach(clo => {
+        const assignedWeight = parseFloat(clo.assignedWeight) || 0;
+        const totalWeightage = parseFloat(clo.totalWeightage) || 1;
+
+        // Calculate the percentage based on updated assigned weightage
+        let percentage = (assignedWeight / totalWeightage) * 100;
+
+        // Ensure the percentage does not exceed 100%
+        if (percentage > 100) {
+            percentage = 100;
+        }
+
+        // Find the corresponding progress bar by CLO ID
+        const progressBarItem = [...progressBarsContainer.children].find(item =>
+            item.querySelector("label")?.textContent.includes(clo.clo_id) // Match CLO ID in label
+        );
+
+        if (progressBarItem) {
+            const progressFill = progressBarItem.querySelector(".progress-fill");
+            const label = progressBarItem.querySelector("label");
+
+            if (progressFill && label) {
+                // Update the progress bar width
+                progressFill.style.width = `${percentage}%`;
+
+                // Force reflow to ensure the change is rendered
+                progressFill.offsetHeight; // Trigger reflow
+
+                // Update the label with percentage (above the bar)
+                label.textContent = `${clo.clo_id} (${percentage.toFixed(2)}%)`;
+
+                // Also update the progress bar fill text, if applicable (inside the bar)
+                progressFill.setAttribute('aria-valuenow', percentage.toFixed(2)); // Assuming aria-valuenow is used for accessibility and/or progress bar value
+            }
+        }
+    });
+
+    console.log("✅ Progress bars updated successfully.");
+}
+
+
+// Adding event listeners to input fields (for example, for each weightage input field)
+const inputs = document.querySelectorAll('.assigned-weight-input'); // Assuming these are the input fields for weightages
+inputs.forEach(input => {
+    input.addEventListener('input', (event) => {
+        let clo_id = event.target.getAttribute('data-clo-id'); // Get CLO ID from data attribute
+        const questionId = event.target.getAttribute('data-question'); // Get question ID
+        const remainingWeightage = parseFloat(event.target.getAttribute('max')); // Get remaining weightage from max attribute
+        const totalWeightage = parseFloat(event.target.getAttribute('data-total-weightage')); // Get total weightage
+
+        // Call the function to handle the input change and update progress
+        updateRemainingCLOWeightage(questionId, clo_id, remainingWeightage, totalWeightage);
+    });
+});
+*/
+
+
+// Update CLO weight (Step 2)
+function updateCLOWeight(clo, value) {
+    cloWeights[clo] = parseFloat(value) || 0; // Parse the input value for CLO weight
+
+    console.log("Updated CLO Weights:", cloWeights);
+
+    // Call the function to update progress bar in Step 2 after the weights are updated
+    updateProgressBar();
+
+    // Call the function to update individual CLO progress bars in Step 3
+   /* updateProgressBars(); */
+}
+
+
+
+function showStep(step) {
+    // Hide all steps
+    document.querySelectorAll(".step").forEach(div => div.style.display = "none");
+    
+    // Show the selected step
+    const targetStep = document.getElementById(`step${step}`);
+    if (targetStep) {
+        targetStep.style.display = "block";
+    }
+
+    // Special handling for Step 3
+    if (step === 3) {
+        console.log("🔄 Moving to Step 3. Using CLOs:", cloWeights);
+        generateTable();
+    }
+}
+
+function prevStep(step) {
+    showStep(step);
+}
+
+document.getElementById('numQuestions').addEventListener('input', function() {
+    generateTable(); // Call function instantly when typing
+});
+
+document.getElementById('numQuestions').addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        generateTable(); // Also trigger on pressing Enter
+    }
+});
+
+function generateTable() {
+    console.log("Generating Table...");
+
+    // Call createSunburst at the start
+    createSunburst();
+
+    const numQuestionsInput = document.getElementById('numQuestions');
+    const numQuestions = parseInt(numQuestionsInput.value);
+
+    if (isNaN(numQuestions) || numQuestions <= 0) {
+        document.getElementById('questionsTableContainer').innerHTML = ""; // Clear table if invalid input
+        return;
+    }
+
+    let clos = Object.keys(cloDataList); // Use cloDataList populated by fetchCLOs
+    console.log("Retrieved CLOs:", clos);
+
+    // Remove duplicates right here
+    clos = [...new Set(clos)];
+
+    if (clos.length === 0) {
+        showModal("⚠️ No CLOs found. Please go back and select a course!");
+        return;
+    }
+
+    let tableHTML = `<table>
+        <thead>
+            <tr>
+                <th>Questions</th>
+                <th>Mapped CLO</th>
+                <th>Marks</th> <!-- Added Marks Column -->
+            </tr>
+        </thead>
+        <tbody>`;
+
+    for (let i = 1; i <= numQuestions; i++) {
+        tableHTML += `<tr>
+            <td>Q${i}</td>
+            <td>
+                <select class="cloDropdown" data-question="Q${i}" onchange="handleCLOSelection(this)">
+                    <option value="">Select CLO</option>`;
+
+        // Populate the CLO dropdown with CLO names
+        clos.forEach(cloId => {
+            const clo = cloDataList[cloId];
+            tableHTML += `<option value="${cloId}">${clo.cloName}</option>`; // Use clo.cloName to display the CLO name
+        });
+
+        tableHTML += `</select>
+                <div id="cloDetails_Q${i}" class="cloDetailsContainer"></div>
+            </td>
+            <td>
+                <input type="number" class="questionMarks" id="marks_Q${i}" min="1" placeholder="Enter Marks">
+            </td>
+        </tr>`;
+    }
+
+    tableHTML += `</tbody></table>`;
+
+    let container = document.getElementById('questionsTableContainer');
+    container.innerHTML = tableHTML;
+    container.style.display = "block";
+
+    console.log("✅ Table fully generated with CLO dropdowns and marks input.");
+}
+
+
+
+
+
+function getCLOData(cloName) {
+    console.log("Fetching CLO Data for:", cloName);
+    console.log("Current CLO Data List:", cloDataList); // Debugging
+
+    if (cloDataList[cloName]) {
+        let weightage = parseFloat(cloDataList[cloName].weightage); // Ensure it's a number
+
+        if (isNaN(weightage)) {
+            console.warn(`CLO ${cloName} has an invalid weightage. Defaulting to 0.`);
+            weightage = 0; // Default to 0 if weightage is missing or invalid
+        }
+
+        return {
+            clo: cloName,
+            description: cloDataList[cloName].description,
+            weightage: weightage
+        };
+    } else {
+        console.warn("CLO data not found for:", cloName);
+        return null;
+    }
+}
+
+// Function to handle saving CLO weightage
+
+// Global variable to store questions and CLO weightages
+let assessmentQuestions = [];
+
+function saveCLOWeight(questionId, cloId) {
+    let weightInput = document.getElementById(`weight_${questionId}_${cloId}`);
+    let weightage = parseFloat(weightInput.value) || 0;
+
+    if (weightage <= 0) {
+        showModal("⚠️ Please enter a valid weightage.");
+        return;
+    }
+
+    let marksInput = document.getElementById(`marks_${questionId}`);
+    let questionMarks = parseInt(marksInput.value) || 0;
+
+    if (questionMarks <= 0) {
+        showModal("⚠️ Please enter valid marks for this question.");
+        return;
+    }
+
+    let assessmentIdField = document.getElementById("assessmentId");
+    if (!assessmentIdField) {
+        showModal("⚠️ Assessment ID not found. Make sure Step 1 is completed.");
+        return;
+    }
+
+    let assessmentId = assessmentIdField.value.trim();
+    if (!assessmentId) {
+        showModal("⚠️ Assessment ID is missing. Save Step 1 first.");
+        return;
+    }
+
+    // Convert Q1, Q2, etc. to numeric IDs (e.g., 1, 2, etc.)
+    let numericQuestionId = questionId.replace(/\D/g, ''); 
+
+    // Fetch CLO name and description
+    fetch("get_clo_id.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clo_id: cloId })  // Sending CLO ID to fetch name and description
+    })
+    .then(response => response.json())
+    .then(cloData => {
+        console.log("CLO Data:", cloData);
+
+        if (cloData.success && cloData.clo_name) {
+            let cloName = cloData.clo_name; // Get the CLO name
+
+            // Store the weightage and marks for this question
+            let questionIndex = assessmentQuestions.findIndex(q => q.questionNumber === numericQuestionId);
+
+            if (questionIndex === -1) {
+                // If the question doesn't exist, create it
+                assessmentQuestions.push({
+                    questionNumber: numericQuestionId,
+                    questionMarks: questionMarks,
+                    cloWeightages: [{ cloId, cloName, weightage }],
+                    questionId: null // Placeholder for the question_id that we will set later
+                });
+            } else {
+                // If the question exists, push the CLO weightage to it
+                assessmentQuestions[questionIndex].cloWeightages.push({ cloId, cloName, weightage });
+                assessmentQuestions[questionIndex].questionMarks = questionMarks;
+            }
+
+            // Save the assessmentQuestions with the question_id into localStorage
+            localStorage.setItem("assessmentQuestions", JSON.stringify(assessmentQuestions));
+
+            // Save the question first
+            return fetch("save_question_data.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    assessment_id: assessmentId,         // Correctly send assessment ID
+                    question_number: numericQuestionId,  // Correctly send question number (numeric)
+                    question_marks: questionMarks       // Correctly send question marks
+                })
+            });
+        } else {
+            throw new Error("CLO not found.");
+        }
+    })
+    .then(response => response.json())
+    .then(saveResponse => {
+        if (saveResponse.success) {
+            console.log("Question saved successfully.");
+
+            // Store the question_id in localStorage
+            let savedQuestions = JSON.parse(localStorage.getItem("savedQuestionIds")) || [];
+            savedQuestions.push({
+                questionNumber: numericQuestionId,  // If you also want to store the question number
+                questionId: saveResponse.question_id
+            });
+            localStorage.setItem("savedQuestionIds", JSON.stringify(savedQuestions));
+
+            // Now, update the assessmentQuestions in localStorage with the saved question_id
+            let updatedAssessmentQuestions = JSON.parse(localStorage.getItem("assessmentQuestions")) || [];
+            updatedAssessmentQuestions.forEach(q => {
+                if (q.questionNumber === numericQuestionId) {
+                    q.questionId = saveResponse.question_id; // Update with the saved question_id
+                }
+            });
+            localStorage.setItem("assessmentQuestions", JSON.stringify(updatedAssessmentQuestions));
+
+            // Now save the CLO assignment for the question
+            return fetch("save_clo_assignment.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    question_id: saveResponse.question_id, // Use the returned question_id
+                    clo_id: cloId,
+                    weightage: weightage
+                })
+            });
+        } else {
+            throw new Error("Error saving question.");
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showModal(`✅ Weightage saved for CLO in Question ${numericQuestionId}`);
+            assignedWeights[cloId] = (assignedWeights[cloId] || 0) + weightage;
+            localStorage.setItem("assignedWeights", JSON.stringify(assignedWeights));
+        } else {
+            throw new Error(`Error saving CLO assignment: ${data.error}`);
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert(`❌ ${error.message}`);
+    });
+}
+
+
+function saveWeightage() {
+    let courseId = document.getElementById("course_id").value;
+    if (!courseId) {
+        showModal("⚠️ Please select a course before saving.");
+        return;
+    }
+
+    let cloWeightages = [];
+    document.querySelectorAll("#cloTableBody tr").forEach(row => {
+        let cloId = row.dataset.cloId; // Assuming we have a data attribute storing CLO ID
+        let weightage = row.querySelector("input").value || 0;
+
+        cloWeightages.push({
+            clo: cloId,
+            weightage: weightage
+        });
+    });
+
+    fetch("save_weightage.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ course_id: courseId, clo_weightages: cloWeightages })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showModal("✅ Weightages saved successfully!");
+        } else {
+            showModal("❌ Error saving weightages. Try again.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Save values to localStorage when Step 1 is completed
+    document.querySelector("#step1 button").addEventListener("click", function () {
+        let assessmentType = document.getElementById("assessmenttype").value;
+        let courseCode = document.getElementById("course_id").value;
+        let assessmentWeightage = parseFloat(document.getElementById("totalWeightage").value);
+
+        // Check if assessmentWeightage is a valid number
+        if (isNaN(assessmentWeightage) || assessmentWeightage <= 0) {
+            showModal("⚠️ Please enter a valid assessment weightage.");
+            return;
+        }
+
+        // Store Step 1 values to localStorage
+        localStorage.setItem("assessmenttype", assessmentType);
+        localStorage.setItem("course_id", courseCode);
+        localStorage.setItem("totalWeightage", assessmentWeightage);
+
+        console.log("Step 1 data saved:", { assessmentType, courseCode, assessmentWeightage });
+        console.log("Local Storage after Step 1:", {
+            assessmentType: localStorage.getItem("assessmenttype"),
+            courseCode: localStorage.getItem("course_id"),
+            assessmentWeightage: localStorage.getItem("totalWeightage")
+        });
+    });
+
+    // Saving values to Step 3
+    document.querySelector("#step3 button:nth-of-type(2)").addEventListener("click", function () {
+        // Retrieve Step 1 details from localStorage
+        let assessmentType = localStorage.getItem("assessmenttype") || "";
+        let courseCode = localStorage.getItem("course_id") || "";
+        let assessmentWeightage = parseFloat(localStorage.getItem("totalWeightage") || "0");
+
+        console.log("Assessment Type from localStorage:", assessmentType);
+        console.log("Course Code from localStorage:", courseCode);
+        console.log("Assessment Weightage from localStorage:", assessmentWeightage);
+
+        // Validate Step 1 data
+        if (!assessmentType || !courseCode || isNaN(assessmentWeightage) || assessmentWeightage <= 0) {
+            showModal("⚠️ Please complete Step 1 first and ensure all fields are filled.");
+            return;
+        }
+
+        // Retrieve saved questions and CLO weightages from localStorage
+        let questionsData = JSON.parse(localStorage.getItem("assessmentQuestions")) || [];
+
+        console.log("Questions Data from localStorage:", questionsData);
+
+        // Validation for number of questions
+        let numQuestions = questionsData.length;
+        if (numQuestions <= 0) {
+            showModal("Please enter at least one question with CLO weightages.");
+            return;
+        }
+
+        // Merge Step 1 and Step 3 data into the final assessment object
+        let assessmentData = {
+            assessmentType,
+            courseCode,
+            assessmentWeightage,
+            questions: questionsData
+        };
+
+        console.log("Final Assessment Data:", assessmentData);
+
+        // Save the merged assessmentData to localStorage
+        localStorage.setItem("assessmentData", JSON.stringify(assessmentData));
+
+        // Log the saved data from localStorage
+        console.log("Saved Assessment Data from localStorage:", localStorage.getItem("assessmentData"));
+
+        // Redirect to assessment.html
+        window.location.href = "assessment.html";
+    });
+});
+
+
+
+
+function createSunburst() {
+    const courseId = document.getElementById('course_id').value;
+    const url = `get_sunburst_data.php?course_id=${courseId}`;
+    console.log("Requesting sunburst data from URL:", url);
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Received data from the server:", data);
+
+            const transformedData = transformData(data);
+            console.log("Transformed Data:", transformedData);
+
+            const container = document.getElementById("chart");
+            const width = container.offsetWidth || 960;
+            const radius = width / 2;
+
+            console.log("Container width:", width, "Radius:", radius);
+
+            container.innerHTML = "";
+
+            const partition = d3.partition().size([2 * Math.PI, radius]);
+
+            const arc = d3.arc()
+                .startAngle(d => d.x0)
+                .endAngle(d => d.x1)
+                .innerRadius(d => d.y0)
+                .outerRadius(d => d.y1);
+
+            const color = d3.scaleOrdinal(d3.quantize(d3.interpolateCool, 10));
+
+            const svg = d3.select("#chart").append("svg")
+                .attr("width", width)
+                .attr("height", width)
+                .attr("viewBox", `0 0 ${width} ${width}`)
+                .style("display", "block")
+                .style("margin", "auto")
+                .append("g")
+                .attr("transform", `translate(${width / 2},${width / 2})`);
+
+            const root = d3.hierarchy(transformedData)
+                .sum(d => d.value)
+                .sort((a, b) => b.value - a.value);
+
+            partition(root);
+
+            const tooltip = d3.select("#chart")
+                .append("div")
+                .attr("class", "tooltip")
+                .style("position", "absolute")
+                .style("background", "rgba(0, 0, 0, 0.8)")
+                .style("color", "#fff")
+                .style("padding", "8px 12px")
+                .style("border-radius", "8px")
+                .style("pointer-events", "none")
+                .style("font-size", "14px")
+                .style("font-family", "sans-serif")
+                .style("display", "none");
+
+            // Draw the sunburst segments
+            svg.selectAll("path")
+                .data(root.descendants())
+                .enter().append("path")
+                .attr("d", d => arc(d))
+                .style("fill", d => {
+                    while (d.depth > 1) d = d.parent;  // Set color at CLO level
+                    return color(d.data.name);
+                })
+                .style("stroke", "#fff")
+                .style("stroke-width", 1)
+                .on("mouseover", (event, d) => {
+                    const name = d.data.name;
+                    const value = d.value;
+
+                    let label = "";
+                    if (d.depth === 1) {
+                        label = `${name}<br><strong>${value}% assigned weightage</strong>`;
+                    } else if (d.depth === 2) {
+                        label = `${name}<br><strong>${value}%</strong>`;
+                    } else {
+                        label = name;
+                    }
+
+                    tooltip.html(label).style("display", "block");
+                })
+                .on("mousemove", event => {
+                    tooltip.style("left", (event.pageX + 15) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.style("display", "none");
+                });
+
+            // Add unassigned arcs (make sure we're not modifying root hierarchy)
+            const unassignedArcs = root.descendants()
+                .filter(d => d.depth === 1) // CLO level
+                .map(d => {
+                    const unassignedValue = Math.max(0, d.data.totalWeightage - d.data.assignedWeightage);
+                    if (unassignedValue <= 0) return null;
+
+                    const angle = d.x1 - d.x0;
+                    const unassignedAngle = (unassignedValue / d.data.totalWeightage) * angle;
+
+                    return {
+                        name: d.data.name + " (Unassigned)",
+                        value: unassignedValue,
+                        x0: d.x1,
+                        x1: d.x1 + unassignedAngle,
+                        y0: d.y0, // start at CLO ring
+                        y1: radius, // Extend to the outermost ring (depth 3)
+                        totalWeightage: d.data.totalWeightage
+                    };
+                }).filter(Boolean);
+
+            console.log("Unassigned Arcs: ", unassignedArcs);
+
+            // Ensure unassigned arcs are added to the sunburst
+            svg.selectAll(".unassigned")
+                .data(unassignedArcs)
+                .enter().append("path")
+                .attr("d", d3.arc()
+                    .startAngle(d => d.x0)
+                    .endAngle(d => d.x1)
+                    .innerRadius(d => d.y0)
+                    .outerRadius(d => d.y1)
+                )
+                .attr("class", "unassigned")
+                .style("fill", d => color(d.name)) // Assign a unique color for each CLO's unassigned portion
+                .style("stroke", "#fff")
+                .style("stroke-width", 1)
+                .on("mouseover", (event, d) => {
+                    tooltip.html(`<strong>${d.name}</strong><br>Unassigned: <strong>${d.value}%</strong>`)
+                        .style("display", "block");
+                })
+                .on("mousemove", event => {
+                    tooltip.style("left", (event.pageX + 15) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    tooltip.style("display", "none");
+                });
+
+            // Add labels
+       svg.selectAll("text")
+    .data(root.descendants().filter(d => d.depth > 0)) // Skip root
+    .enter().append("text")
+    .attr("transform", d => {
+        const [x, y] = arc.centroid(d);
+        const angle = ((d.x0 + d.x1) / 2) * 180 / Math.PI;
+        return `translate(${x},${y}) rotate(${angle})`;
+    })
+    .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "middle")
+    .style("font-size", d => (d.depth === 1 ? "13px" : "11px"))
+    .style("fill", "#000")
+    .style("font-weight", "bold")
+    .text(d => {
+        const arcAngle = d.x1 - d.x0;
+        const maxChars = Math.floor(arcAngle * 25); // heuristic scale factor
+
+        if (maxChars < 1) return ""; // too narrow, skip label entirely
+
+        return d.data.name.length > maxChars
+            ? d.data.name.substring(0, maxChars) + "…"
+            : d.data.name;
+    });
+
+
+
+            console.log("✅ Sunburst chart created successfully.");
+        })
+        .catch(error => {
+            console.error('Error fetching sunburst data:', error);
+        });
+}
+
+
+function transformData(data) {
+    console.log("Data inside transformData:", data);
+
+    const cloData = {
+        name: "CLO",
+        children: []
+    };
+
+    if (data && data.children && Array.isArray(data.children)) {
+        console.log("Processing CLOs...");
+
+        data.children.forEach(clo => {
+            const cloNode = {
+                name: clo.name,
+                totalWeightage: parseFloat(clo.value) || 0,  // Ensure this is a number
+                assignedWeightage: parseFloat(clo.assigned_weightage) || 0,  // Ensure it's a number
+                unassignedWeightage: parseFloat(clo.unassigned_weightage) || 0,  // Ensure it's a number
+                children: []
+            };
+
+            if (clo.children && typeof clo.children === 'object') {
+                console.log(`Processing assessments for CLO: ${clo.name}`);
+
+                // Create an object to track the occurrence of assessment names
+                const assessmentCountMap = {};
+
+                Object.keys(clo.children).forEach(assessmentId => {
+                    const assessment = clo.children[assessmentId];
+
+                    // Check if this assessment name already exists in the map, if yes increment its count
+                    const assessmentName = assessment.name;
+                    if (!assessmentCountMap[assessmentName]) {
+                        assessmentCountMap[assessmentName] = 1; // First occurrence
+                    } else {
+                        assessmentCountMap[assessmentName]++; // Increment for subsequent occurrences
+                    }
+
+                    const assessmentNode = {
+                        name: `${assessment.name} ${assessmentCountMap[assessmentName]}`,
+                        value: parseFloat(assessment.value) || 0,  // Ensure this is a number
+                        children: []
+                    };
+
+                    // Add the weightage to the CLO assigned weightage
+                    cloNode.assignedWeightage += assessmentNode.value;
+
+                    if (assessment.children && Array.isArray(assessment.children)) {
+                        console.log(`Adding questions for assessment: ${assessment.name}`);
+
+                        assessment.children.forEach(question => {
+                            // Convert question value to a number
+                            const questionWeightage = parseFloat(question.value) || 0;
+
+                            assessmentNode.children.push({
+                                name: question.name,
+                                value: questionWeightage
+                            });
+                        });
+                    }
+
+                    cloNode.children.push(assessmentNode);
+                });
+            }
+
+            // Recalculate the unassigned weightage based on the assigned weightage
+            cloNode.unassignedWeightage = Math.max(0, cloNode.totalWeightage - cloNode.assignedWeightage);
+
+           /* if (cloNode.unassignedWeightage > 0) {
+                cloNode.children.push({
+                    name: "unassigned",
+                    value: cloNode.unassignedWeightage,
+                    isUnassigned: true // flag to differentiate later
+                });
+            }*/
+
+            cloData.children.push(cloNode);
+        });
+    }
+
+    console.log("Final Transformed Data:", JSON.stringify(cloData, null, 2));
+
+    return cloData;
+}
+
+
+document.getElementById("saveAssessment").addEventListener("click", function () {
+    const assessmentType = localStorage.getItem("assessmenttype") || "";
+    const courseCode = localStorage.getItem("course_id") || "";
+    const assessmentWeightage = parseFloat(localStorage.getItem("totalWeightage") || "0");
+
+    if (!assessmentType || !courseCode || isNaN(assessmentWeightage) || assessmentWeightage <= 0) {
+        showModal("⚠️ Please complete Step 1 first and ensure all fields are filled.");
+        return;
+    }
+
+    let questionsData = JSON.parse(localStorage.getItem("assessmentQuestions")) || [];
+
+    if (questionsData.length === 0) {
+        showModal("Please enter at least one question with CLO weightages.");
+        return;
+    }
+
+    // Optional: check if each question already has a question_id
+    const allHaveQuestionIDs = questionsData.every(q => q.question_id !== undefined && q.question_id !== null);
+
+    if (!allHaveQuestionIDs) {
+
+        return;
+    }
+
+    const assessmentData = {
+        assessmentType,
+        courseCode,
+        assessmentWeightage,
+        questions: questionsData // already includes question_id
+    };
+
+    localStorage.setItem("assessmentData", JSON.stringify(assessmentData));
+    console.log("✅ Saved Assessment Data to localStorage:", assessmentData);
+
+    // Optionally move to next step
+    window.location.href = "assessment.html";
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Retrieve stored data from Step 1
+    let assessmentType = localStorage.getItem("assessmenttype");
+    let courseID = localStorage.getItem("course_id");
+
+    // Set Assessment Type and Course ID
+    document.getElementById("assessmentType").textContent = assessmentType || "Not selected";
+    document.getElementById("courseID").textContent = courseID || "N/A";
+
+    // Fetch course name from database using AJAX
+    if (courseID) {
+        fetchCourseName(courseID);
+    }
+});
+
+// Function to fetch course name from the database
+function fetchCourseName(courseID) {
+    fetch("get_course_name.php?course_id=" + courseID)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("courseName").textContent = data.course_name;
+            } else {
+                document.getElementById("courseName").textContent = "Unknown Course";
+            }
+        })
+        .catch(error => console.error("Error fetching course name:", error));
+}
+
+// Function to open and customize the modal
+function showModal(message) {
+    // Set the message dynamically
+    document.getElementById("modalMessage").innerText = message;
+
+  document.querySelector('.modal').classList.add('show'); // Show modal
+
+    // Close button functionality
+    document.getElementById("modalCloseBtn").onclick = function() {
+        closeModal();
+    }
+
+    // Close button in header
+    document.querySelector(".close-btn").onclick = function() {
+        closeModal();
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("reusableModal")) {
+            closeModal();
+        }
+    }
+
+    // Close the modal
+   function closeModal() {
+  document.querySelector('.modal').classList.remove('show'); // Hide modal
+}
+}
+
+function toggleDropdown() {
+  const dropdown = document.getElementById("userDropdown");
+  dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  lucide.createIcons();
+}
+
+function logout() {
+  alert("Logged out!");
+  window.location.href = "login.html";
+}
+
+function changeProfilePic(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById("userIcon").style.backgroundImage = `url('${e.target.result}')`;
+      document.getElementById("dropdownProfile").style.backgroundImage = `url('${e.target.result}')`;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+document.addEventListener("click", function (event) {
+  const user = document.querySelector(".user");
+  const dropdown = document.getElementById("userDropdown");
+  if (!user.contains(event.target) && !dropdown.contains(event.target)) {
+    dropdown.style.display = "none";
+  }
+});
+</script>
+</body>
+</html>
